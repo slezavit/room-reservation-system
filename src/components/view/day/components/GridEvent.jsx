@@ -1,4 +1,4 @@
-import { differenceInHours, format } from "date-fns";
+import { differenceInHours } from "date-fns";
 import React from "react";
 import { gridPosition } from "../../../../utils/Utils";
 import { useSharedState } from "../../../../store/Context";
@@ -18,7 +18,6 @@ const GridEvent = ({ id, name, date, startTime, endTime }) => {
 
   // actual data
   const duration = differenceInHours(eventEnd, eventStart);
-  const day = format(eventStart, "i");
 
   // styling data
   const { hour, minute } = splitTime(startTime);
@@ -27,17 +26,17 @@ const GridEvent = ({ id, name, date, startTime, endTime }) => {
   const height = duration * 3;
   return (
     <div
-      className="flex text-black md:px-[2px]"
+      className="flex text-black px-[4px]"
       style={{
-        gridColumn: day - 1 + 3,
-        gridRow: row - 7,
+        gridColumn: 2,
+        gridRow: row - 8,
         height: `calc(${height}em)`,
         width: `calc(100%)`,
         marginTop: offset,
       }}
       onClick={() => setState({ ...state, isDetailOpen: true })}
     >
-      <small className="break-all text-clip py-1 bg-[#eff6ff] p-1 w-full h-full md:rounded-md">
+      <small className="break-all text-clip py-1 bg-[#eff6ff] p-1 w-full h-full rounded-md">
         {name}
       </small>
     </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import { days } from "../../../../utils/Utils";
 import GridDay from "./GridDay";
 import { eachDayOfInterval, endOfWeek, startOfWeek } from "date-fns";
 import { useSharedState } from "../../../../store/Context";

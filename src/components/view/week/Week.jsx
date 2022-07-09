@@ -11,7 +11,7 @@ const Week = ({ data, state, isLoading }) => {
   return (
     <div className="p-3 pt-0 md:pt-0 lg:px-10">
       <div
-        className="grid border border-gray-100 border-bl-0 rounded rounded-tr-none rounded-tl-none overflow-hidden"
+        className="grid border border-gray-100 border-bl-0 border-t-0 rounded rounded-tr-none rounded-tl-none overflow-hidden"
         style={{
           gridTemplateColumns: "2em repeat(7, minmax(0, 1fr))",
           gridTemplateRows: "3em repeat(15, 3em)",
