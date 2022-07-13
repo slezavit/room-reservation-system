@@ -10,7 +10,7 @@ function splitTime(time) {
   return { hour, minute };
 }
 
-const GridEvent = ({ id, name, date, startTime, endTime }) => {
+const GridEvent = ({ id, name, date, startTime, endTime, description }) => {
   const [state, setState] = useSharedState();
   // data formating
   const eventStart = new Date(`${date} ${startTime}`.replace("-", "/"));
@@ -24,6 +24,12 @@ const GridEvent = ({ id, name, date, startTime, endTime }) => {
   const row = hour + gridPosition.rowStart;
   const offset = `${(minute / 60) * 3}em`;
   const height = duration * 3;
+
+  const selectHandle = () => {
+    setState({ ...state, isDetailOpen: true, selectedData: {
+      name, date, startTime, endTime, description
+    } });
+  };
   return (
     <div
       className="flex text-black px-[4px]"
@@ -34,7 +40,7 @@ const GridEvent = ({ id, name, date, startTime, endTime }) => {
         width: `calc(100%)`,
         marginTop: offset,
       }}
-      onClick={() => setState({ ...state, isDetailOpen: true })}
+      onClick={selectHandle}
     >
       <small className="break-all text-clip py-1 bg-[#eff6ff] p-1 w-full h-full rounded-md">
         {name}

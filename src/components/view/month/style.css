@@ -1,0 +1,6 @@
+.dayCell:nth-child(7n - 6) {
+  border-left: none;
+}
+.dayCellBottom:nth-last-child(-n + 7) {
+  border-bottom: none;
+}

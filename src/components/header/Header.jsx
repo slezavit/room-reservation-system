@@ -1,5 +1,5 @@
 import React from "react";
-import { addDays, addWeeks, format } from "date-fns";
+import { addDays, addMonths, addWeeks, format } from "date-fns";
 
 // icons
 import { ReactComponent as RightArrow } from "../../assets/right-arrow.svg";
@@ -13,7 +13,7 @@ const Header = ({ roomId }) => {
       <div className="border border-gray-100 flex justify-between items-center w-full p-2 sm:p-3 rounded rounded-bl-none rounded-br-none bg-white">
         <div>{format(state.currentDate, "LLL do, y")}</div>
 
-        {state.currentView === "day" ? (
+        {state.currentView === "day" && (
           <div>
             <button
               className="p-2 rounded mr-2 bg-[#F3F3F4] hover:bg-gray-200 duration-200"
@@ -38,7 +38,8 @@ const Header = ({ roomId }) => {
               <RightArrow className="w-4 md:w-5 h-fit" />
             </button>
           </div>
-        ) : (
+        )}
+        {state.currentView === "week" && (
           <div>
             <button
               className="p-2 rounded mr-2 bg-[#F3F3F4] hover:bg-gray-200 duration-200"
@@ -56,6 +57,32 @@ const Header = ({ roomId }) => {
                 setState({
                   ...state,
                   currentDate: addWeeks(state.currentDate, 1),
+                })
+              }
+              className="p-2 rounded bg-[#F3F3F4] hover:bg-gray-200 duration-200"
+            >
+              <RightArrow className="w-4 md:w-5 h-fit" />
+            </button>
+          </div>
+        )}
+        {state.currentView === "month" && (
+          <div>
+            <button
+              className="p-2 rounded mr-2 bg-[#F3F3F4] hover:bg-gray-200 duration-200"
+              onClick={() =>
+                setState({
+                  ...state,
+                  currentDate: addMonths(state.currentDate, -1),
+                })
+              }
+            >
+              <LeftArrow className="w-4 md:w-5 h-fit" />
+            </button>
+            <button
+              onClick={() =>
+                setState({
+                  ...state,
+                  currentDate: addMonths(state.currentDate, 1),
                 })
               }
               className="p-2 rounded bg-[#F3F3F4] hover:bg-gray-200 duration-200"

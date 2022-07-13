@@ -29,6 +29,7 @@ const Day = ({ data, state, isLoading }) => {
               date={event.date}
               startTime={event.start_time}
               endTime={event.end_time}
+              description={event.description}
             />
           ) : (
             ""

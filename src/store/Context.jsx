@@ -6,6 +6,7 @@ const initialState = {
   currentView: "week",
   currentDate: today,
   isDetailOpen: false,
+  selectedData: null,
 };
 
 const useMyState = () => useState(initialState);

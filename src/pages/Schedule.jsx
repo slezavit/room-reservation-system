@@ -31,7 +31,9 @@ const Schedule = () => {
       {state.currentView === "week" && (
         <Week state={state} isLoading={isLoading} data={data} />
       )}
-      {state.currentView === "month" && <Month />}
+      {state.currentView === "month" && (
+        <Month state={state} isLoading={isLoading} data={data} />
+      )}
 
       {state.isDetailOpen && <Details />}
     </>
