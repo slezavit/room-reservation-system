@@ -17,14 +17,24 @@ const Schedule = () => {
     roomId = 1;
   }
 
-  const { data, isLoading } = useQuery(["room", roomId], () =>
+  const { data, isLoading: loadingRoom } = useQuery(["room", roomId], () =>
     api.getRoomEvent(roomId)
   );
 
+  const { data: rooms, isLoading: loadingRooms } = useQuery(
+    "rooms",
+    api.getRooms
+  );
+  const isLoading = loadingRoom || loadingRooms;
+  const currentRoom = rooms?.find((room) => room.id === Number(roomId));
+  if (isLoading) {
+    return "loading";
+  }
   return (
     <>
-      <Navbar />
+      <Navbar currentRoom={currentRoom} />
       <Header roomId={roomId} />
+
       {state.currentView === "day" && (
         <Day state={state} isLoading={isLoading} data={data} />
       )}

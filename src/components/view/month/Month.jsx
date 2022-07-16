@@ -40,79 +40,97 @@ const Month = ({ data, state, isLoading }) => {
   );
 
   return (
-    <div className="md:border border-gray-100 border-t-0 md:border-t-0 mx-3 lg:mx-10">
-      <div className="md:grid md:grid-cols-3 md:divide-x md:divide-gray-100">
-        <div className=" col-span-2 border border-t-0 border-gray-100 md:border-none">
-          <div className="grid grid-cols-7 text-xs leading-6 text-center text-black ">
-            <div className="py-3 border-b border-gray-100">Sun</div>
-            <div className="py-3 border-l border-b border-gray-100">Mon</div>
-            <div className="py-3 border-l border-b border-gray-100">Tue</div>
-            <div className="py-3 border-l border-b border-gray-100">Wed</div>
-            <div className="py-3 border-l border-b border-gray-100">Thu</div>
-            <div className="py-3 border-l border-b border-gray-100">Fri</div>
-            <div className="py-3 border-l border-b border-gray-100">Sat</div>
-          </div>
-          <div className="grid grid-cols-7 text-sm">
-            {days.map((day, dayIdx) => (
-              <div
-                key={day.toString()}
-                className={classNames(
-                  dayIdx === 0 && colStartClasses[getDay(day)],
-                  data.some((meeting) =>
-                    isSameDay(parseISO(meeting.date), day)
-                  ) && "bg-gray-100",
-                  "border-l border-b border-gray-100 dayCell dayCellBottom"
-                )}
-              >
-                <button
-                  type="button"
-                  onClick={() => setSelectedDay(day)}
+    <div className="pb-4 sm:px-2 md:px-10">
+      <div className="sm:border sm:border-t-0 sm:border-gray-100 rounded-lg">
+        <div className="md:grid md:grid-cols-3 md:divide-x md:divide-gray-100">
+          <div className=" col-span-2 border border-t-0 border-gray-100 md:border-none">
+            <div className="grid grid-cols-7 text-xs leading-6 text-center bg-gray-100 sm:rounded-tl-lg">
+              <div className="py-3 border-b border-gray-100">Sun</div>
+              <div className="py-3 border-l border-gray-200">Mon</div>
+              <div className="py-3 border-l border-gray-200">Tue</div>
+              <div className="py-3 border-l border-gray-200">Wed</div>
+              <div className="py-3 border-l border-gray-200">Thu</div>
+              <div className="py-3 border-l border-gray-200">Fri</div>
+              <div className="py-3 border-l border-gray-200">Sat</div>
+            </div>
+
+            <div className="grid grid-cols-7 text-sm">
+              {days.map((day, dayIdx) => (
+                <div
+                  style={
+                    data.some((meeting) =>
+                      isSameDay(parseISO(meeting.date), day)
+                    )
+                      ? {
+                          backgroundColor: "#ffffff",
+                          opacity: (0.6).toExponential,
+                          background:
+                            "repeating-linear-gradient(-45deg, rgb(243 244 246), rgb(243 244 246) 10px, rgb(255, 255, 255) 0, rgb(255, 255, 255) 20px)",
+                        }
+                      : {}
+                  }
+                  key={day.toString()}
                   className={classNames(
-                    isEqual(day, selectedDay) && "text-white",
-                    !isEqual(day, selectedDay) &&
-                      isToday(day) &&
-                      "text-red-500",
-                    !isEqual(day, selectedDay) &&
-                      !isToday(day) &&
-                      isSameMonth(day, firstDayCurrentMonth) &&
-                      "text-gray-900",
-                    !isEqual(day, selectedDay) &&
-                      !isToday(day) &&
-                      !isSameMonth(day, state.currentDate) &&
-                      "text-gray-400",
-                    isEqual(day, selectedDay) && isToday(day) && "bg-black",
-                    isEqual(day, selectedDay) && !isToday(day) && "bg-gray-900",
-                    !isEqual(day, selectedDay) && "hover:bg-gray-200",
-                    (isEqual(day, selectedDay) || isToday(day)) &&
-                      "font-semibold",
-                    "mx-auto flex w-full h-full items-center justify-center py-4 md:py-5"
+                    dayIdx === 0 && colStartClasses[getDay(day)],
+
+                    "border-l border-b border-gray-100 dayCell dayCellBottom"
                   )}
                 >
-                  <time dateTime={format(day, "yyyy-MM-dd")}>
-                    {format(day, "d")}
-                  </time>
-                </button>
-              </div>
-            ))}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDay(day)}
+                    className={classNames(
+                      isEqual(day, selectedDay) && "text-white",
+                      !isEqual(day, selectedDay) &&
+                        isToday(day) &&
+                        "bg-gray-100",
+                      !isEqual(day, selectedDay) &&
+                        !isToday(day) &&
+                        isSameMonth(day, firstDayCurrentMonth) &&
+                        "text-gray-900",
+                      !isEqual(day, selectedDay) &&
+                        !isToday(day) &&
+                        !isSameMonth(day, state.currentDate) &&
+                        "text-gray-400",
+                      isEqual(day, selectedDay) && isToday(day) && "bg-primary",
+                      isEqual(day, selectedDay) &&
+                        !isToday(day) &&
+                        "bg-primary",
+                      !isEqual(day, selectedDay) && "hover:bg-gray-200",
+                      (isEqual(day, selectedDay) || isToday(day)) &&
+                        "font-semibold",
+                      "mx-auto flex w-full h-full items-center justify-center py-8 lg:py-10 relative"
+                    )}
+                  >
+                    <time
+                      className="absolute top-2 left-2 font-medium"
+                      dateTime={format(day, "yyyy-MM-dd")}
+                    >
+                      {format(day, "d")}
+                    </time>
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
+          <section className="pt-8 md:pt-4 px-4 md:border-t md:rounded-tr-lg">
+            <h2 className="font-semibold text-gray-900">
+              Schedule for{" "}
+              <time dateTime={format(selectedDay, "yyyy-MM-dd")}>
+                {format(selectedDay, "MMM dd, yyy")}
+              </time>
+            </h2>
+            <ol className="mt-4 text-sm leading-6 text-gray-500">
+              {selectedDayMeetings.length > 0 ? (
+                selectedDayMeetings.map((meeting) => (
+                  <Meeting meeting={meeting} key={meeting.id} />
+                ))
+              ) : (
+                <p>No meetings for today.</p>
+              )}
+            </ol>
+          </section>
         </div>
-        <section className="pt-8 md:pt-4 md:px-4">
-          <h2 className="font-semibold text-gray-900">
-            Schedule for{" "}
-            <time dateTime={format(selectedDay, "yyyy-MM-dd")}>
-              {format(selectedDay, "MMM dd, yyy")}
-            </time>
-          </h2>
-          <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500 pb-4">
-            {selectedDayMeetings.length > 0 ? (
-              selectedDayMeetings.map((meeting) => (
-                <Meeting meeting={meeting} key={meeting.id} />
-              ))
-            ) : (
-              <p>No meetings for today.</p>
-            )}
-          </ol>
-        </section>
       </div>
     </div>
   );

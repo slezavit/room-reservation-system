@@ -9,9 +9,9 @@ const Day = ({ data, state, isLoading }) => {
     return "Loading";
   }
   return (
-    <div className="p-3 pt-0 md:pt-0 lg:px-10">
+    <div className="sm:px-2 md:px-10">
       <div
-        className="grid border border-gray-100 border-bl-0 border-t-0 rounded rounded-tr-none rounded-tl-none overflow-hidden"
+        className="grid border border-x-0 sm:border-x border-gray-100 border-bl-0 border-t-0 sm:rounded-lg rounded-tr-none rounded-tl-none overflow-hidden"
         style={{
           gridTemplateColumns: "2em repeat(1, minmax(0, 1fr))",
           gridTemplateRows: "3em repeat(14, 3em)",
@@ -30,6 +30,7 @@ const Day = ({ data, state, isLoading }) => {
               startTime={event.start_time}
               endTime={event.end_time}
               description={event.description}
+              email={event.email}
             />
           ) : (
             ""

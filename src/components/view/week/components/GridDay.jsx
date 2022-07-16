@@ -1,6 +1,7 @@
-import { format, isSameDay, isToday, parseISO } from "date-fns";
+import { format, isToday } from "date-fns";
 import React from "react";
 import { gridPosition } from "../../../../utils/Utils";
+import { useSharedState } from "../../../../store/Context";
 
 const dictionary = {
   1: "Sun",
@@ -12,18 +13,24 @@ const dictionary = {
   7: "Sat",
 };
 const GridDay = ({ day, id }) => {
+  const [state, setState] = useSharedState();
   const title = dictionary[id];
 
   if (!title) return null;
 
+  const dayRedirect = (e) => {
+    setState({ ...state, currentDate: e, currentView: "day" });
+  };
+
   return (
     <div
-      className={`flex items-center justify-center ${
-        isToday(day) ? "bg-black text-white" : ""
+      onClick={() => dayRedirect(day)}
+      className={`flex items-center justify-center border-l border-gray-200 cursor-pointer ${
+        isToday(day) ? "bg-gray-300" : "bg-gray-100 text-gray-400"
       }`}
       style={{ gridRow: 1, gridColumn: id + gridPosition.columnStart }}
     >
-      <small className="flex justify-center items-center flex-col font-light text-[10px] md:text-xs">
+      <small className="flex justify-center items-center flex-col text-[10px] md:text-xs">
         {title} <span>{format(day, "d")}</span>
       </small>
     </div>

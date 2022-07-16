@@ -1,8 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/Header";
-import Navbar from "./components/navbar/Navbar";
 import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
+import "./assets/style/global-styles.css";
 
 import { SharedStateProvider } from "./store/Context";
 

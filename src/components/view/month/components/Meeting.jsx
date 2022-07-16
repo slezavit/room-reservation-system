@@ -6,13 +6,12 @@ const Meeting = ({ meeting }) => {
   return (
     <li
       onClick={() => setIsOpen(!isOpen)}
-      className="flex flex-col cursor-pointer px-4 py-2 group rounded-xl focus-within:bg-gray-100 bg-gray-100"
+      className="flex flex-col cursor-pointer px-4 py-2 group rounded-xl focus-within:bg-gray-100 bg-gray-100 mt-2"
     >
       <div className="flex-auto">
         <p className="text-gray-900">{name}</p>
         <p className="mt-0.5">
-          <time dateTime={start_time}>{start_time}</time> -
-          <time dateTime={end_time}>{end_time}</time>
+          <time>{start_time}</time> -<time> {end_time}</time>
         </p>
       </div>
       <div className={`${isOpen ? "block" : "hidden"}`}>{description}</div>

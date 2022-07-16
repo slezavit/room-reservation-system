@@ -2,24 +2,27 @@ import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as api from "../store/api";
+
 const Home = () => {
   const { data, isLoading } = useQuery("rooms", api.getRooms);
-
   if (isLoading) {
     return "loading";
   }
 
   return (
-    <div className="flex justify-center items-center flex-col w-full h-screen">
-      <h1 className="mb-10">Select room</h1>
-      <div className="flex gap-10 justify-center items-center">
+    <div className="">
+      <div className="px-6 py-4 md:px-10 md:py-6 border-b border-gray-100 mb-4">
+        <h3 className="font-semibold md:text-xl">All rooms</h3>
+      </div>
+      <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data?.map((room) => (
           <Link
-            className="px-7 py-4 border block w-fit"
+            className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
             to={`schedule/${room.id}`}
             key={room.id}
           >
-            {room.id}
+            <h3 className="font-semibold mb-1">{room.id}02</h3>
+            <p className="text-gray-400 text-xs">{room.name}</p>
           </Link>
         ))}
       </div>
