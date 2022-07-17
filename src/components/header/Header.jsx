@@ -16,7 +16,6 @@ const Header = () => {
   const changeView = (e) => {
     setState({
       ...state,
-      currentDate: new Date(),
       currentView: e,
     });
   };
@@ -51,7 +50,9 @@ const Header = () => {
     <div className="px-2 md:px-10 py-0">
       <div className="flex justify-between items-stretch my-3 sm:my-6 sm:px-6">
         <h3 className="font-bold text-xl hidden sm:block">
-          {format(state.currentDate, "LLLL d, y")}
+          {state.currentView === "day"
+            ? format(state.currentDate, "eeee, LLLL d, y")
+            : format(state.currentDate, "LLLL d, y")}
         </h3>
         <div className="p-1 bg-gray-100 rounded-lg ml-0 sm:-ml-16">
           {views.map((view, idx) => (
@@ -73,6 +74,17 @@ const Header = () => {
             className="flex justify-center hover:bg-gray-200 duration-300 items-center bg-gray-100 p-2 h-full rounded-lg rounded-tr-none rounded-br-none"
           >
             <ArrowLeftIcon className="w-4 sm:w-5 h-fit" />
+          </button>
+          <button
+            onClick={() =>
+              setState({
+                ...state,
+                currentDate: new Date(),
+              })
+            }
+            className="flex justify-center hover:bg-gray-200 duration-300 items-center bg-gray-100 p-2 h-full"
+          >
+            Today
           </button>
           <button
             onClick={() => dateHandler({ view: state.currentView, type: 1 })}

@@ -2,6 +2,7 @@ import { differenceInHours, format } from "date-fns";
 import React from "react";
 import { gridPosition } from "../../../../utils/Utils";
 import { useSharedState } from "../../../../store/Context";
+import { motion } from "framer-motion";
 function splitTime(time) {
   const timeArray = time.split(":");
   const hour = parseInt(timeArray[0], 10);
@@ -18,7 +19,9 @@ const GridEvent = ({
   endTime,
   description,
   windowWidth,
-  email
+  email,
+  fade,
+  isRepeated,
 }) => {
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
@@ -53,7 +56,11 @@ const GridEvent = ({
   };
 
   return (
-    <div
+    <motion.div
+      variants={fade}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
       className="flex text-black sm:px-[3px] md:px-[5px] lg:px-[7px]"
       style={{
         gridColumn: day - 1 + 3,
@@ -64,13 +71,19 @@ const GridEvent = ({
       }}
       onClick={selectHandle}
     >
-      <small className="break-all leading-[20px] overflow-hidden text-ellipsis py-1 md:p-2 md:font-medium text-xs md:text-sm bg-[#f0f3fd] cursor-pointer border sm:border-[2px] md:border-[3px] border-[#afb7e1] p-1 w-full h-full sm:rounded-md">
+      <small
+        className={`break-all leading-[20px] overflow-hidden text-ellipsis py-1 md:p-2 md:font-medium text-xs md:text-sm cursor-pointer border sm:border-[2px] md:border-[3px] p-1 w-full h-full rounded sm:rounded-md ${
+          !isRepeated
+            ? "bg-[#fef4e4] border-[#efe5d6]"
+            : "bg-[#f5f7fb] border-[#e5e7eb]"
+        }`}
+      >
         <span className="hidden md:block md:text-[10px] lg:text-xs text-gray-400">
           {startTime.slice(0, 5)} - {endTime.slice(0, 5)}
         </span>
-        <span className="text-[#0552C5]">{name}</span>
+        <span className="text-primary">{name}</span>
       </small>
-    </div>
+    </motion.div>
   );
 };
 

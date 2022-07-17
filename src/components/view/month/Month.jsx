@@ -18,6 +18,9 @@ import {
 import { useState } from "react";
 import { startOfMonth } from "date-fns/esm";
 import Meeting from "./components/Meeting";
+import { motion } from "framer-motion";
+import { fade } from "../../../utils/animations";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -40,7 +43,13 @@ const Month = ({ data, state, isLoading }) => {
   );
 
   return (
-    <div className="pb-4 sm:px-2 md:px-10">
+    <motion.div
+      variants={fade}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      className="pb-4 sm:px-2 md:px-10"
+    >
       <div className="sm:border sm:border-t-0 sm:border-gray-100 rounded-lg">
         <div className="md:grid md:grid-cols-3 md:divide-x md:divide-gray-100">
           <div className=" col-span-2 border border-t-0 border-gray-100 md:border-none">
@@ -56,10 +65,16 @@ const Month = ({ data, state, isLoading }) => {
 
             <div className="grid grid-cols-7 text-sm">
               {days.map((day, dayIdx) => (
-                <div
+                <motion.div
+                  variants={fade}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
                   style={
-                    data.some((meeting) =>
-                      isSameDay(parseISO(meeting.date), day)
+                    data.some(
+                      (meeting) =>
+                        isSameDay(parseISO(meeting.date), day) &
+                        !meeting.is_repeated
                     )
                       ? {
                           backgroundColor: "#ffffff",
@@ -109,7 +124,7 @@ const Month = ({ data, state, isLoading }) => {
                       {format(day, "d")}
                     </time>
                   </button>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -120,10 +135,11 @@ const Month = ({ data, state, isLoading }) => {
                 {format(selectedDay, "MMM dd, yyy")}
               </time>
             </h2>
+
             <ol className="mt-4 text-sm leading-6 text-gray-500">
               {selectedDayMeetings.length > 0 ? (
                 selectedDayMeetings.map((meeting) => (
-                  <Meeting meeting={meeting} key={meeting.id} />
+                  <Meeting meeting={meeting} key={meeting.id} fade={fade} />
                 ))
               ) : (
                 <p>No meetings for today.</p>
@@ -132,7 +148,7 @@ const Month = ({ data, state, isLoading }) => {
           </section>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

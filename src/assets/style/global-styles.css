@@ -6,7 +6,12 @@ svg {
   grid-template-rows: 3em repeat(15, 5em);
 }
 
-ol{
+.day-cells {
+  grid-template-columns: 2em repeat(1, minmax(0, 1fr));
+  grid-template-rows: repeat(15, 5em);
+}
+
+ol {
   list-style: none;
   margin: 0;
 }
@@ -14,5 +19,8 @@ ol{
 @media only screen and (max-width: 640px) {
   .week-cells {
     grid-template-rows: 3em repeat(15, 3em);
+  }
+  .day-cells {
+    grid-template-rows: repeat(15, 3em);
   }
 }

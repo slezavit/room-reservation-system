@@ -9,6 +9,8 @@ import Header from "../components/header/Header";
 import { useQuery } from "react-query";
 import * as api from "../store/api";
 import Details from "../components/common/Details";
+import { motion, AnimatePresence } from "framer-motion";
+import { fade } from "../utils/animations";
 const Schedule = () => {
   const [state] = useSharedState();
   let { roomId } = useParams();
@@ -31,22 +33,30 @@ const Schedule = () => {
     return "loading";
   }
   return (
-    <>
+    <motion.div
+      variants={fade}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+    >
       <Navbar currentRoom={currentRoom} />
       <Header roomId={roomId} />
 
-      {state.currentView === "day" && (
-        <Day state={state} isLoading={isLoading} data={data} />
-      )}
-      {state.currentView === "week" && (
-        <Week state={state} isLoading={isLoading} data={data} />
-      )}
-      {state.currentView === "month" && (
-        <Month state={state} isLoading={isLoading} data={data} />
-      )}
-
-      {state.isDetailOpen && <Details />}
-    </>
+      <AnimatePresence exitBeforeEnter>
+        {state.currentView === "day" && (
+          <Day key="1" state={state} isLoading={isLoading} data={data} />
+        )}
+        {state.currentView === "week" && (
+          <Week key="2" state={state} isLoading={isLoading} data={data} />
+        )}
+        {state.currentView === "month" && (
+          <Month key="3" state={state} isLoading={isLoading} data={data} />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {state.isDetailOpen && <Details key="detail" />}
+      </AnimatePresence>
+    </motion.div>
   );
 };
 

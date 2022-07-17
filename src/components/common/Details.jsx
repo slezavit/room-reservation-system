@@ -2,6 +2,7 @@ import React from "react";
 import { useSharedState } from "../../store/Context";
 
 import { format, parseISO } from "date-fns";
+import { motion } from "framer-motion";
 const Details = () => {
   const [state, setState] = useSharedState();
   if (!state.selectedData) {
@@ -9,12 +10,21 @@ const Details = () => {
   }
   return (
     <div className="w-full h-full z-30 fixed top-0 left-0">
-      <div
-        className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 sm:bg-gray-600 sm:opacity-30"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5, transition: { duration: 0.2 } }}
+        exit={{ opacity: 0 }}
+        className="absolute top-0 left-0 right-0 bottom-0 bg-primary"
         onClick={() => setState({ ...state, isDetailOpen: false })}
       />
 
-      <div className="w-[90vw] h-[80vh] shadow-lg md:w-[600px] rounded-xl overflow-hidden bg-white origin-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5, x: "-50%", y: "-50%" }}
+        animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+        exit={{ opacity: 0, scale: 0.5 }}
+        transition={{ duration: 0.3, ease: "circOut" }}
+        className="w-[90vw] h-[80vh] shadow-lg md:w-[600px] rounded-xl overflow-hidden bg-white origin-center absolute top-1/2 left-1/2 z-20"
+      >
         <div className="bg-primary text-white px-4 py-5">
           <h3>{state.selectedData.name}</h3>
           <div className="text-sm text-gray-200 mt-2">
@@ -43,7 +53,7 @@ const Details = () => {
             Close
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

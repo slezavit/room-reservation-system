@@ -2,6 +2,7 @@ import { differenceInHours } from "date-fns";
 import React from "react";
 import { gridPosition } from "../../../../utils/Utils";
 import { useSharedState } from "../../../../store/Context";
+import { motion } from "framer-motion";
 function splitTime(time) {
   const timeArray = time.split(":");
   const hour = parseInt(timeArray[0], 10);
@@ -18,8 +19,12 @@ const GridEvent = ({
   endTime,
   description,
   email,
+  fade,
+  windowWidth,
+  isRepeated,
 }) => {
   const [state, setState] = useSharedState();
+  let eventHeight = windowWidth < 640 ? 3 : 5;
   // data formating
   const eventStart = new Date(`${date} ${startTime}`.replace("-", "/"));
   const eventEnd = new Date(`${date} ${endTime}`.replace("-", "/"));
@@ -31,7 +36,7 @@ const GridEvent = ({
   const { hour, minute } = splitTime(startTime);
   const row = hour + gridPosition.rowStart;
   const offset = `${(minute / 60) * 3}em`;
-  const height = duration * 3;
+  const height = duration * eventHeight;
 
   const selectHandle = () => {
     setState({
@@ -48,7 +53,11 @@ const GridEvent = ({
     });
   };
   return (
-    <div
+    <motion.div
+      variants={fade}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
       className="flex text-black pl-4 pr-2"
       style={{
         gridColumn: 2,
@@ -59,13 +68,19 @@ const GridEvent = ({
       }}
       onClick={selectHandle}
     >
-      <small className="break-all leading-[18px] overflow-hidden text-ellipsis py-1 md:p-2 md:font-medium text-xs md:text-sm bg-[#f0f3fd] cursor-pointer border sm:border-[2px] md:border-[3px] border-[#d9dced] p-1 w-full h-full rounded-lg">
+      <small
+        className={`break-all leading-[18px] overflow-hidden text-ellipsis py-1 md:p-2 md:font-medium text-xs md:text-sm cursor-pointer border sm:border-[2px] md:border-[3px] p-1 w-full h-full rounded-lg ${
+          !isRepeated
+            ? "bg-[#fef4e4] border-[#efe5d6]"
+            : "bg-[#f5f7fb] border-[#e5e7eb]"
+        }`}
+      >
         <span className="hidden md:block md:text-[10px] lg:text-xs text-gray-400">
           {startTime.slice(0, 5)} - {endTime.slice(0, 5)}
         </span>
         <span className="text-[#0552C5]">{name}</span>
       </small>
-    </div>
+    </motion.div>
   );
 };
 
