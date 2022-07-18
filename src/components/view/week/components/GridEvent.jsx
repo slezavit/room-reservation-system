@@ -27,8 +27,8 @@ const GridEvent = ({
   let eventHeight = windowWidth < 640 ? 3 : 5;
 
   // data formating
-  const eventStart = new Date(`${date} ${startTime}`.replace("-", "/"));
-  const eventEnd = new Date(`${date} ${endTime}`.replace("-", "/"));
+  const eventStart = new Date(`${date} ${startTime}`);
+  const eventEnd = new Date(`${date} ${endTime}`);
 
   // actual data
   const duration = differenceInMinutes(eventEnd, eventStart);
@@ -65,7 +65,7 @@ const GridEvent = ({
       initial="hidden"
       animate="visible"
       exit="hidden"
-      className="flex text-black sm:px-[3px] md:px-[5px] lg:px-[7px]"
+      className="flex text-black px-[1px] sm:px-[3px] md:px-[5px] lg:px-[7px]"
       style={{
         gridColumn: day - 1 + 3,
         gridRow: row - 7,

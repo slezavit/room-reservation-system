@@ -12,7 +12,6 @@ const Day = ({ data, state, isLoading }) => {
   if (isLoading) {
     return <Loader />;
   }
-  console.log();
 
   return (
     <motion.div

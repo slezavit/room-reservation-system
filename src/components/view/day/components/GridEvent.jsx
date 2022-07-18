@@ -26,8 +26,8 @@ const GridEvent = ({
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
   // data formating
-  const eventStart = new Date(`${date} ${startTime}`.replace("-", "/"));
-  const eventEnd = new Date(`${date} ${endTime}`.replace("-", "/"));
+  const eventStart = new Date(`${date} ${startTime}`);
+  const eventEnd = new Date(`${date} ${endTime}`);
 
   // actual data
   const duration = differenceInMinutes(eventEnd, eventStart);
@@ -78,7 +78,7 @@ const GridEvent = ({
         <span className="hidden md:block md:text-[10px] lg:text-xs text-gray-400">
           {startTime.slice(0, 5)} - {endTime.slice(0, 5)}
         </span>
-        <span className="text-[#0552C5]">{name}</span>
+        <span className="text-primary">{name}</span>
       </small>
     </motion.div>
   );

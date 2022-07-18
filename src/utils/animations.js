@@ -1,4 +1,4 @@
-let durationTime = 0.3;
+let durationTime = 0.2;
 export const fade = {
   hidden: {
     opacity: 0,
