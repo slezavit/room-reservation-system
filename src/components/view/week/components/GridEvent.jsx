@@ -1,4 +1,4 @@
-import { differenceInHours, format } from "date-fns";
+import { differenceInMinutes, format } from "date-fns";
 import React from "react";
 import { gridPosition } from "../../../../utils/Utils";
 import { useSharedState } from "../../../../store/Context";
@@ -31,14 +31,18 @@ const GridEvent = ({
   const eventEnd = new Date(`${date} ${endTime}`.replace("-", "/"));
 
   // actual data
-  const duration = differenceInHours(eventEnd, eventStart);
-  const day = format(eventStart, "i");
+  const duration = differenceInMinutes(eventEnd, eventStart);
+
+  let day = format(eventStart, "i");
+  if (day >= 7) {
+    day = 0;
+  }
 
   // styling data
   const { hour, minute } = splitTime(startTime);
   const row = hour + gridPosition.rowStart;
-  const offset = `${(minute / 60) * 3}em`;
-  const height = duration * eventHeight;
+  const offset = `${(minute / 60) * eventHeight}em`;
+  const height = (duration / 60) * eventHeight;
 
   const selectHandle = () => {
     setState({

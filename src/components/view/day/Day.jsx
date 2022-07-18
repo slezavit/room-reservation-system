@@ -6,10 +6,11 @@ import { isSameDay, parseISO, format } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { fade } from "../../../utils/animations";
 import useWidth from "../../../hooks/useWidth";
+import Loader from "../../common/Loader";
 const Day = ({ data, state, isLoading }) => {
   const windowWidth = useWidth();
   if (isLoading) {
-    return "Loading";
+    return <Loader />;
   }
   console.log();
 
@@ -24,7 +25,7 @@ const Day = ({ data, state, isLoading }) => {
       <div className="grid border border-x-0 sm:border-x border-gray-100 border-bl-0 border-t-0 sm:rounded-lg rounded-tr-none rounded-tl-none overflow-hidden day-cells">
         <Lines />
         <GridLabels />
-        <AnimatePresence>
+        <AnimatePresence exitBeforeEnter>
           {data?.map((event) =>
             event.is_repeated
               ? format(state.currentDate, "eeee") ===

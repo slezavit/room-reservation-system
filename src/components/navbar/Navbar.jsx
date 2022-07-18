@@ -34,7 +34,7 @@ const Navbar = ({ currentRoom }) => {
             {state.currentView === "week" &&
               format(state.currentDate, "LLLL do, y")}
           </span>
-          <button className="bg-primary py-1 px-2 sm:py-2 rounded-lg text-white">
+          <button className="bg-primary py-1 px-1.5 sm:py-2 rounded-lg text-white">
             <PlusIcon className="w-5 h-5 sm:mr-2" />
             <span className="hidden sm:inline">Add event</span>
           </button>

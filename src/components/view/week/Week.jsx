@@ -8,10 +8,11 @@ import useWidth from "../../../hooks/useWidth";
 import { ReactComponent as DocumentIcon } from "../../../assets/icons/document-filled.svg";
 import { fade } from "../../../utils/animations";
 import { motion, AnimatePresence } from "framer-motion";
+import Loader from "../../common/Loader";
 const Week = ({ data, state, isLoading }) => {
   const windowWidth = useWidth();
   if (isLoading) {
-    return "Loading";
+    return <Loader />;
   }
   return (
     <motion.div

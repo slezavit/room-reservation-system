@@ -20,6 +20,7 @@ import { startOfMonth } from "date-fns/esm";
 import Meeting from "./components/Meeting";
 import { motion } from "framer-motion";
 import { fade } from "../../../utils/animations";
+import Loader from "../../common/Loader";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -31,7 +32,7 @@ const Month = ({ data, state, isLoading }) => {
   const currentMonth = format(today, "MMM-yyyy");
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date());
   if (isLoading) {
-    return "Loading";
+    return <Loader />;
   }
   let days = eachDayOfInterval({
     start: startOfWeek(startOfMonth(state.currentDate)),
@@ -39,7 +40,9 @@ const Month = ({ data, state, isLoading }) => {
   });
 
   let selectedDayMeetings = data.filter((meeting) =>
-    isSameDay(parseISO(meeting.date), selectedDay)
+    meeting.is_repeated
+      ? format(selectedDay, "eeee") === format(parseISO(meeting.date), "eeee")
+      : isSameDay(parseISO(meeting.date), selectedDay)
   );
 
   return (
@@ -142,7 +145,14 @@ const Month = ({ data, state, isLoading }) => {
                   <Meeting meeting={meeting} key={meeting.id} fade={fade} />
                 ))
               ) : (
-                <p>No meetings for today.</p>
+                <motion.p
+                  variants={fade}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                >
+                  No meetings for today.
+                </motion.p>
               )}
             </ol>
           </section>

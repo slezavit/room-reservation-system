@@ -5,12 +5,13 @@ import * as api from "../store/api";
 import { useSharedState } from "../store/Context";
 import { motion } from "framer-motion";
 import { fade } from "../utils/animations";
+import Loader from "../components/common/Loader";
 
 const Home = () => {
   const [state, setState] = useSharedState();
   const { data, isLoading } = useQuery("rooms", api.getRooms);
   if (isLoading) {
-    return "loading";
+    return <Loader />;
   }
 
   return (

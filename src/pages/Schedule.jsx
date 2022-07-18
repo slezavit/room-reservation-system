@@ -11,6 +11,7 @@ import * as api from "../store/api";
 import Details from "../components/common/Details";
 import { motion, AnimatePresence } from "framer-motion";
 import { fade } from "../utils/animations";
+import Loader from "../components/common/Loader";
 const Schedule = () => {
   const [state] = useSharedState();
   let { roomId } = useParams();
@@ -30,7 +31,7 @@ const Schedule = () => {
   const isLoading = loadingRoom || loadingRooms;
   const currentRoom = rooms?.find((room) => room.id === Number(roomId));
   if (isLoading) {
-    return "loading";
+    return <Loader />;
   }
   return (
     <motion.div
