@@ -26,8 +26,8 @@ const GridEvent = ({
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
   // data formating
-  const eventStart = new Date(`${date} ${startTime}`);
-  const eventEnd = new Date(`${date} ${endTime}`);
+  const eventStart = new Date(`${date} ${startTime}`.replace(/-/g, "/"));
+  const eventEnd = new Date(`${date} ${endTime}`.replace(/-/g, "/"));
 
   // actual data
   const duration = differenceInMinutes(eventEnd, eventStart);

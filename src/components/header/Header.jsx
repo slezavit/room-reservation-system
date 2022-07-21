@@ -48,7 +48,7 @@ const Header = () => {
   };
   return (
     <div className="px-2 md:px-10 py-0">
-      <div className="flex justify-between items-stretch my-3 sm:my-6 sm:px-6">
+      <div className="flex justify-between my-3 sm:my-6 sm:px-6">
         <h3 className="font-bold text-xl hidden sm:block">
           {state.currentView === "day"
             ? format(state.currentDate, "eeee, LLLL d, y")
@@ -73,7 +73,7 @@ const Header = () => {
             onClick={() => dateHandler({ view: state.currentView, type: -1 })}
             className="flex justify-center hover:bg-gray-200 duration-300 items-center bg-gray-100 p-2 h-full rounded-lg rounded-tr-none rounded-br-none"
           >
-            <ArrowLeftIcon className="w-4 sm:w-5 h-fit" />
+            <ArrowLeftIcon className="w-4 sm:w-5" />
           </button>
           <button
             onClick={() =>
@@ -90,7 +90,7 @@ const Header = () => {
             onClick={() => dateHandler({ view: state.currentView, type: 1 })}
             className="flex justify-center hover:bg-gray-200 duration-300 items-center bg-gray-100 p-2 h-full rounded-lg rounded-tl-none rounded-bl-none"
           >
-            <ArrowRightIcon className="w-4 sm:w-5 h-fit" />
+            <ArrowRightIcon className="w-4 sm:w-5" />
           </button>
         </div>
       </div>
