@@ -22,7 +22,7 @@ const Details = () => {
 
       <div className="w-[90vw] h-[80vh] shadow-lg md:w-[600px] rounded-xl overflow-hidden bg-white origin-center absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2">
         <div className="bg-primary text-white px-4 py-5">
-          <h3>{state.selectedData.name}</h3>
+          <h3>{state.selectedData.title}</h3>
           <div className="text-sm text-gray-200 mt-2">
             <span>
               {format(parseISO(state.selectedData.date), "EEEE, MMM do,")}

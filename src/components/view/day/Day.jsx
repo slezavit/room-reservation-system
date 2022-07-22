@@ -26,14 +26,14 @@ const Day = ({ data, state, isLoading }) => {
         <GridLabels />
         <AnimatePresence exitBeforeEnter>
           {data?.map((event) =>
-            event.is_repeated
+            event.type === "class"
               ? format(state.currentDate, "eeee") ===
                   format(parseISO(event.date), "eeee") && (
                   <GridEvent
                     fade={fade}
                     key={event.id}
                     id={event.id}
-                    name={event.name}
+                    title={event.title}
                     date={event.date}
                     startTime={event.start_time}
                     endTime={event.end_time}
@@ -48,7 +48,7 @@ const Day = ({ data, state, isLoading }) => {
                     fade={fade}
                     key={event.id}
                     id={event.id}
-                    name={event.name}
+                    title={event.title}
                     date={event.date}
                     startTime={event.start_time}
                     endTime={event.end_time}

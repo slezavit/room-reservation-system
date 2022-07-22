@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 const Meeting = ({ meeting, fade }) => {
-  const { name, start_time, end_time, description } = meeting;
+  const { title, start_time, end_time, description } = meeting;
   const [isOpen, setIsOpen] = useState(false);
   return (
     <motion.li
@@ -11,11 +11,11 @@ const Meeting = ({ meeting, fade }) => {
       exit="hidden"
       onClick={() => setIsOpen(!isOpen)}
       className={`flex flex-col cursor-pointer px-4 py-2 group rounded-xl focus-within:bg-gray-100 mt-2 ${
-        !meeting.is_repeated ? "bg-[#fef4e4]" : "bg-[#f5f7fb]"
+        meeting.type === "event" ? "bg-[#fef4e4]" : "bg-[#f5f7fb]"
       }`}
     >
       <div className="flex-auto">
-        <p className="text-gray-900">{name}</p>
+        <p className="text-gray-900">{title}</p>
         <p className="mt-0.5">
           <time>{start_time.slice(0, 5)}</time> -
           <time> {end_time.slice(0, 5)}</time>

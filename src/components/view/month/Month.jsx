@@ -39,11 +39,13 @@ const Month = ({ data, state, isLoading }) => {
     end: endOfWeek(endOfMonth(state.currentDate)),
   });
 
-  let selectedDayMeetings = data.filter((meeting) =>
-    meeting.is_repeated
-      ? format(selectedDay, "eeee") === format(parseISO(meeting.date), "eeee")
-      : isSameDay(parseISO(meeting.date), selectedDay)
-  );
+  let selectedDayMeetings = data
+    .filter((meeting) =>
+      meeting.type === "class"
+        ? format(selectedDay, "eeee") === format(parseISO(meeting.date), "eeee")
+        : isSameDay(parseISO(meeting.date), selectedDay)
+    )
+    .sort((a, b) => parseFloat(a.start_time) - parseFloat(b.start_time));
 
   return (
     <motion.div
@@ -77,7 +79,7 @@ const Month = ({ data, state, isLoading }) => {
                     data.some(
                       (meeting) =>
                         isSameDay(parseISO(meeting.date), day) &
-                        !meeting.is_repeated
+                        (meeting.type === "event")
                     )
                       ? {
                           backgroundColor: "#ffffff",

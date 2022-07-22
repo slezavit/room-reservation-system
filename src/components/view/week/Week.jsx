@@ -32,11 +32,11 @@ const Week = ({ data, state, isLoading }) => {
 
         <AnimatePresence>
           {data?.map((event) =>
-            event.is_repeated ? (
+            event.type === "class" ? (
               <GridEvent
                 key={event.id}
                 id={event.id}
-                name={event.name}
+                title={event.title}
                 date={event.date}
                 startTime={event.start_time}
                 endTime={event.end_time}
@@ -51,7 +51,7 @@ const Week = ({ data, state, isLoading }) => {
                 <GridEvent
                   key={event.id}
                   id={event.id}
-                  name={event.name}
+                  title={event.title}
                   date={event.date}
                   startTime={event.start_time}
                   endTime={event.end_time}

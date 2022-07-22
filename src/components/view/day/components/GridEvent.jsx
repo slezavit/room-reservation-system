@@ -13,7 +13,7 @@ function splitTime(time) {
 
 const GridEvent = ({
   id,
-  name,
+  title,
   date,
   startTime,
   endTime,
@@ -43,7 +43,7 @@ const GridEvent = ({
       ...state,
       isDetailOpen: true,
       selectedData: {
-        name,
+        title,
         date,
         startTime,
         endTime,
@@ -78,7 +78,7 @@ const GridEvent = ({
         <span className="hidden md:block md:text-[10px] lg:text-xs text-gray-400">
           {startTime.slice(0, 5)} - {endTime.slice(0, 5)}
         </span>
-        <span className="text-primary">{name}</span>
+        <span className="text-primary">{title}</span>
       </small>
     </motion.div>
   );
