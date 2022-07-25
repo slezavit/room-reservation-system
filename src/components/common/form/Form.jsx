@@ -7,6 +7,7 @@ import EventForm from "./EventForm";
 const Form = ({ roomId, data }) => {
   const [state, setState] = useSharedState();
   const [userEmail, setUserEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
 
   const [step, setStep] = useState(1);
   const handleEmail = async (e) => {
@@ -18,6 +19,21 @@ const Form = ({ roomId, data }) => {
     localStorage.setItem("confirmCode", JSON.stringify(response.data));
 
     setStep(2);
+  };
+  const emailVerify = (e) => {
+    setUserEmail(e);
+    let ending = e.split("@")[1];
+    if (ending) {
+      setEmailError(true);
+      if (ending === "ucentralasia.org") {
+        setEmailError(false);
+      }
+    }
+  };
+
+  const refresh = (e) => {
+    e.preventDefault();
+    alert("Please, type correct email");
   };
 
   if (step === 3) {
@@ -47,14 +63,22 @@ const Form = ({ roomId, data }) => {
         <div className="px-4 py-5 h-[85%] overflow-hidden">
           {step === 1 && (
             <>
-              <form onSubmit={handleEmail} className="space-y-3">
-                <p>Enter your email, so we can send a verification code</p>
+              <form
+                onSubmit={emailError ? refresh : handleEmail}
+                className="space-y-3"
+              >
+                <p>Enter your UCA email, so we can send a verification code</p>
+                {emailError && (
+                  <p className="text-red-300">
+                    Email should end with @ucentralasia.org
+                  </p>
+                )}
                 <input
                   className="w-full border px-3 py-2 rounded-xl"
                   type="email"
                   placeholder="email"
                   value={userEmail}
-                  onChange={(e) => setUserEmail(e.target.value)}
+                  onChange={(e) => emailVerify(e.target.value)}
                   required
                 />
                 <button
