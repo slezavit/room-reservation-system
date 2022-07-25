@@ -6,7 +6,7 @@ const GridLabels = () => {
       {times.map((time) => (
         <small
           key={time}
-          className="flex items-center justify-center relative font-medium text-gray-400 text-xs border-t border-green-100"
+          className="flex items-center justify-center relative font-medium text-gray-400 text-xs border-t border-gray-100"
           style={{
             gridRow: time - 7 + gridPosition.rowStart,
             gridColumn: gridPosition.labels,
