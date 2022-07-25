@@ -27,3 +27,15 @@ export const getRoomEvent = async (roomId) => {
     console.log(err);
   }
 };
+
+// Create event
+export const addEvent = async (event) => {
+  try {
+    await api.post(
+      `https://ilkhom19.pythonanywhere.com/room/${event.room}`,
+      event
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};

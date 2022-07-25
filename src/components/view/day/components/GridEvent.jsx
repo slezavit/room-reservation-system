@@ -49,6 +49,7 @@ const GridEvent = ({
         endTime,
         description,
         email,
+        isRepeated,
       },
     });
   };

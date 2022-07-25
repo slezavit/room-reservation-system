@@ -1,0 +1,87 @@
+import React, { useState } from "react";
+import { useSharedState } from "../../../store/Context";
+import axios from "axios";
+
+import { motion } from "framer-motion";
+import EventForm from "./EventForm";
+const Form = ({ roomId, data }) => {
+  const [state, setState] = useSharedState();
+  const [userEmail, setUserEmail] = useState("");
+
+  const [step, setStep] = useState(1);
+  const handleEmail = async (e) => {
+    e.preventDefault();
+    const response = await axios.post(
+      "https://ilkhom19.pythonanywhere.com/mail/",
+      { email: userEmail }
+    );
+    localStorage.setItem("confirmCode", JSON.stringify(response.data));
+
+    setStep(2);
+  };
+
+  if (step === 3) {
+    setTimeout(() => {
+      setState({ ...state, isFormOpen: false });
+      setStep(1);
+    }, 2000);
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 0.2 } }}
+      exit={{ opacity: 0 }}
+      className="w-full h-full z-30 fixed top-0 left-0 bg-transparent"
+    >
+      <div
+        className="absolute top-0 left-0 right-0 bottom-0 bg-primary opacity-40"
+        onClick={() => setState({ ...state, isFormOpen: false })}
+      />
+
+      <div className="w-[90vw] h-[80vh] shadow-lg md:w-[600px] rounded-xl bg-white origin-center absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="bg-primary text-white px-4 py-5 flex items-center rounded-t-xl h-[15%]">
+          <h3>Add event</h3>
+          <div className="text-sm text-gray-200 mt-2"></div>
+        </div>
+        <div className="px-4 py-5 h-[85%] overflow-hidden">
+          {step === 1 && (
+            <>
+              <form onSubmit={handleEmail} className="space-y-3">
+                <p>Enter your email, so we can send a verification code</p>
+                <input
+                  className="w-full border px-3 py-2 rounded-xl"
+                  type="email"
+                  placeholder="email"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                  required
+                />
+                <button
+                  className="bg-primary text-white w-full py-2 rounded-xl"
+                  type="submit"
+                >
+                  Send
+                </button>
+              </form>
+              <button
+                onClick={() => setStep(2)}
+                className="underline w-full py-2 rounded-xl mt-4"
+                type="submit"
+              >
+                Already got a code
+              </button>
+            </>
+          )}
+
+          {step === 2 && (
+            <EventForm data={data} setStep={setStep} roomId={roomId} />
+          )}
+          {step === 3 && <h3>Your request has been submitted successfully.</h3>}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default Form;

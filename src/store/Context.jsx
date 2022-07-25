@@ -7,6 +7,7 @@ const initialState = {
   currentDate: today,
   isDetailOpen: false,
   selectedData: null,
+  isFormOpen: false,
 };
 
 const useMyState = () => useState(initialState);

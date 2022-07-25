@@ -12,6 +12,8 @@ import Details from "../components/common/Details";
 import { motion, AnimatePresence } from "framer-motion";
 import { fade } from "../utils/animations";
 import Loader from "../components/common/Loader";
+import Error from "./Error";
+import Form from "../components/common/form/Form";
 const Schedule = () => {
   const [state] = useSharedState();
   let { roomId } = useParams();
@@ -20,9 +22,11 @@ const Schedule = () => {
     roomId = 1;
   }
 
-  const { data, isLoading: loadingRoom } = useQuery(["room", roomId], () =>
-    api.getRoomEvent(roomId)
-  );
+  const {
+    data,
+    isLoading: loadingRoom,
+    isError,
+  } = useQuery(["room", roomId], () => api.getRoomEvent(roomId));
 
   const { data: rooms, isLoading: loadingRooms } = useQuery(
     "rooms",
@@ -32,6 +36,9 @@ const Schedule = () => {
   const currentRoom = rooms?.find((room) => room.id === Number(roomId));
   if (isLoading) {
     return <Loader />;
+  }
+  if (isError) {
+    return <Error />;
   }
   return (
     <motion.div
@@ -56,6 +63,13 @@ const Schedule = () => {
       </AnimatePresence>
       <AnimatePresence>
         {state.isDetailOpen && <Details key="detail" />}
+        {state.isFormOpen && (
+          <Form
+            key="form"
+            roomId={roomId}
+            data={data}
+          />
+        )}
       </AnimatePresence>
     </motion.div>
   );

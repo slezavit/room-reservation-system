@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 const Meeting = ({ meeting, fade }) => {
-  const { title, start_time, end_time, description } = meeting;
+  const { title, start_time, end_time, description, email } = meeting;
   const [isOpen, setIsOpen] = useState(false);
   return (
     <motion.li
@@ -10,7 +10,7 @@ const Meeting = ({ meeting, fade }) => {
       animate="visible"
       exit="hidden"
       onClick={() => setIsOpen(!isOpen)}
-      className={`flex flex-col cursor-pointer px-4 py-2 group rounded-xl focus-within:bg-gray-100 mt-2 ${
+      className={`flex flex-col cursor-pointer px-4 py-2 group rounded-xl mt-2 ${
         meeting.type === "event" ? "bg-[#fef4e4]" : "bg-[#f5f7fb]"
       }`}
     >
@@ -36,7 +36,10 @@ const Meeting = ({ meeting, fade }) => {
             exit={{ height: 0 }}
             className="overflow-hidden"
           >
-            {description}
+            <p className="">{description}</p>
+            <p>
+              <span className="font-bold">Email:</span> {email}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

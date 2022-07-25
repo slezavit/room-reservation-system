@@ -24,7 +24,7 @@ const Home = () => {
       <div className="px-6 py-4 md:px-10 md:py-6 border-b border-gray-100 mb-4">
         <h3 className="font-semibold md:text-xl">All rooms</h3>
       </div>
-      <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
         {data?.map((room) => (
           <Link
             onClick={() =>
@@ -38,7 +38,9 @@ const Home = () => {
             key={room.id}
           >
             <h3 className="font-semibold mb-1">{room.id}02</h3>
-            <p className="text-gray-400 text-xs">{room.name}</p>
+            <p className="text-xs">{room.name}</p>
+            <p className="text-xs mb-1">{room.seats} seats</p>
+            <p className="text-gray-400 text-xs">{room.information}</p>
           </Link>
         ))}
       </div>

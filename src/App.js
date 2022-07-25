@@ -17,7 +17,6 @@ function App() {
             <Route index element={<Home />} />
             <Route path="schedule" element={<Schedule />} />
             <Route path="schedule/:roomId" element={<Schedule />} />
-            <Route path="schedule/:roomId" element={<Schedule />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </AnimatePresence>

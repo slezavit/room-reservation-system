@@ -12,7 +12,7 @@ import { ReactComponent as CrossIcon } from "../../assets/icons/cross.svg";
 import { motion, AnimatePresence } from "framer-motion";
 const Navbar = ({ currentRoom }) => {
   const [isExpand, setIsExpand] = useState(false);
-  const [state] = useSharedState();
+  const [state, setState] = useSharedState();
   return (
     <div className="px-2 md:px-10 sticky top-0 sm:static bg-white z-20 border-b border-gray-100">
       <div className="w-full py-3 sm:px-6 sm:py-4">
@@ -34,7 +34,10 @@ const Navbar = ({ currentRoom }) => {
             {state.currentView === "week" &&
               format(state.currentDate, "LLLL do, y")}
           </span>
-          <button className="bg-primary py-1 px-1.5 sm:py-2 rounded-lg text-white">
+          <button
+            onClick={() => setState({ ...state, isFormOpen: true })}
+            className="bg-primary py-1 px-1.5 sm:py-2 rounded-lg text-white"
+          >
             <PlusIcon className="w-5 h-5 sm:mr-2" />
             <span className="hidden sm:inline">Add event</span>
           </button>
@@ -48,8 +51,8 @@ const Navbar = ({ currentRoom }) => {
                 height: "auto",
               }}
               transition={{
-                duration: 0.5,
-                ease: "circOut",
+                duration: 0.3,
+                ease: "easeOut",
               }}
               exit={{ height: 0 }}
               className="overflow-hidden"

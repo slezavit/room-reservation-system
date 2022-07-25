@@ -11,6 +11,9 @@ svg {
   grid-template-rows: repeat(15, 5em);
 }
 
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
 ol {
   list-style: none;
   margin: 0;
