@@ -33,7 +33,6 @@ const Form = ({ roomId, data }) => {
 
   const refresh = (e) => {
     e.preventDefault();
-    alert("Please, type correct email");
   };
 
   if (step === 3) {
@@ -84,6 +83,7 @@ const Form = ({ roomId, data }) => {
                 <button
                   className="bg-primary text-white w-full py-2 rounded-xl"
                   type="submit"
+                  disabled={emailError}
                 >
                   Send
                 </button>
