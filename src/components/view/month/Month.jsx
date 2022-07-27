@@ -21,12 +21,27 @@ import Meeting from "./components/Meeting";
 import { motion } from "framer-motion";
 import { fade } from "../../../utils/animations";
 import Loader from "../../common/Loader";
-
+import { useSwipeable } from "react-swipeable";
+import { addMonths } from "date-fns";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Month = ({ data, state, isLoading }) => {
+const Month = ({ data, state, setState, isLoading }) => {
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      setState({
+        ...state,
+        currentDate: addMonths(state.currentDate, 1),
+      });
+    },
+    onSwipedRight: () => {
+      setState({
+        ...state,
+        currentDate: addMonths(state.currentDate, -1),
+      });
+    },
+  });
   let today = startOfToday();
   let [selectedDay, setSelectedDay] = useState(today);
   const currentMonth = format(today, "MMM-yyyy");
@@ -54,6 +69,7 @@ const Month = ({ data, state, isLoading }) => {
       animate="visible"
       exit="hidden"
       className="pb-4 sm:px-2 md:px-10"
+      {...handlers}
     >
       <div className="sm:border sm:border-t-0 sm:border-gray-100 rounded-lg">
         <div className="md:grid md:grid-cols-3 md:divide-x md:divide-gray-100">

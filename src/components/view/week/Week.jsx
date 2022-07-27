@@ -9,11 +9,29 @@ import { ReactComponent as DocumentIcon } from "../../../assets/icons/document-f
 import { fade } from "../../../utils/animations";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../../common/Loader";
-const Week = ({ data, state, isLoading }) => {
+import { useSwipeable } from "react-swipeable";
+import { addWeeks } from "date-fns";
+const Week = ({ data, state, isLoading, setState }) => {
   const windowWidth = useWidth();
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      setState({
+        ...state,
+        currentDate: addWeeks(state.currentDate, 1),
+      });
+    },
+    onSwipedRight: () => {
+      setState({
+        ...state,
+        currentDate: addWeeks(state.currentDate, -1),
+      });
+    },
+  });
+
   if (isLoading) {
     return <Loader />;
   }
+
   return (
     <motion.div
       variants={fade}
@@ -21,6 +39,7 @@ const Week = ({ data, state, isLoading }) => {
       animate="visible"
       exit="hidden"
       className="pb-2 sm:px-2 md:px-10"
+      {...handlers}
     >
       <div className="grid sm:border sm:border-gray-100 sm:border-t-0 border-bl-0 sm:rounded-lg overflow-hidden week-cells">
         <span className="row-start-1 col-start-1 bg-gray-100 flex justify-center items-center text-gray-400">

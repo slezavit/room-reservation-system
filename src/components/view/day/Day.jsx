@@ -2,13 +2,28 @@ import React from "react";
 import GridLabels from "./components/GridLabels";
 import GridEvent from "./components/GridEvent";
 import Lines from "./components/Lines";
-import { isSameDay, parseISO, format } from "date-fns";
+import { isSameDay, parseISO, format, addDays } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { fade } from "../../../utils/animations";
 import useWidth from "../../../hooks/useWidth";
 import Loader from "../../common/Loader";
-const Day = ({ data, state, isLoading }) => {
+import { useSwipeable } from "react-swipeable";
+const Day = ({ data, state, setState, isLoading }) => {
   const windowWidth = useWidth();
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      setState({
+        ...state,
+        currentDate: addDays(state.currentDate, 1),
+      });
+    },
+    onSwipedRight: () => {
+      setState({
+        ...state,
+        currentDate: addDays(state.currentDate, -1),
+      });
+    },
+  });
   if (isLoading) {
     return <Loader />;
   }
@@ -20,6 +35,7 @@ const Day = ({ data, state, isLoading }) => {
       animate="visible"
       exit="hidden"
       className="sm:px-2 md:px-10"
+      {...handlers}
     >
       <div className="grid border border-x-0 sm:border-x border-gray-100 border-bl-0 border-t-0 sm:rounded-lg rounded-tr-none rounded-tl-none overflow-hidden day-cells">
         <Lines />

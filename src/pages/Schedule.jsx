@@ -15,7 +15,7 @@ import Loader from "../components/common/Loader";
 import Error from "./Error";
 import Form from "../components/common/form/Form";
 const Schedule = () => {
-  const [state] = useSharedState();
+  const [state, setState] = useSharedState();
   let { roomId } = useParams();
 
   if (!roomId) {
@@ -52,24 +52,36 @@ const Schedule = () => {
 
       <AnimatePresence exitBeforeEnter>
         {state.currentView === "day" && (
-          <Day key="1" state={state} isLoading={isLoading} data={data} />
+          <Day
+            key="1"
+            setState={setState}
+            state={state}
+            isLoading={isLoading}
+            data={data}
+          />
         )}
         {state.currentView === "week" && (
-          <Week key="2" state={state} isLoading={isLoading} data={data} />
+          <Week
+            setState={setState}
+            state={state}
+            key="2"
+            isLoading={isLoading}
+            data={data}
+          />
         )}
         {state.currentView === "month" && (
-          <Month key="3" state={state} isLoading={isLoading} data={data} />
+          <Month
+            setState={setState}
+            state={state}
+            key="3"
+            isLoading={isLoading}
+            data={data}
+          />
         )}
       </AnimatePresence>
       <AnimatePresence>
         {state.isDetailOpen && <Details key="detail" />}
-        {state.isFormOpen && (
-          <Form
-            key="form"
-            roomId={roomId}
-            data={data}
-          />
-        )}
+        {state.isFormOpen && <Form key="form" roomId={roomId} data={data} />}
       </AnimatePresence>
     </motion.div>
   );
