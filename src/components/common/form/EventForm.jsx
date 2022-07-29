@@ -185,6 +185,7 @@ const EventForm = ({ roomId, setStep, data }) => {
       date: Yup.date().required("Date should be empty"),
     }),
     onSubmit: async (values) => {
+      setStep(3);
       const newValues = {
         ...values,
         start_time: startTime.name + ":00",
@@ -196,7 +197,6 @@ const EventForm = ({ roomId, setStep, data }) => {
       queryClient.invalidateQueries("room", `"${roomId}"`);
       localStorage.removeItem("confirmCode");
       resetForm();
-      setStep(3);
     },
   });
 
