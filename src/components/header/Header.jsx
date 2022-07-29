@@ -51,7 +51,7 @@ const Header = () => {
       <div className="flex justify-between my-3 sm:my-6 sm:px-6">
         <h3 className="font-bold text-xl hidden sm:block">
           {state.currentView === "day"
-            ? format(state.currentDate, "eeee, LLLL d, y")
+            ? format(state.currentDate, "eee, LLLL d, y")
             : format(state.currentDate, "LLLL d, y")}
         </h3>
         <div className="p-1 bg-gray-100 rounded-lg ml-0 sm:-ml-16">

@@ -5,6 +5,7 @@ import { Listbox } from "@headlessui/react";
 import { differenceInMinutes, format, parseISO } from "date-fns";
 import { addEvent } from "../../../store/api";
 import { useMutation, useQueryClient } from "react-query";
+import sha512 from "crypto-js/sha512";
 
 let timeSlot = [
   { id: 1, name: "08:00", unavailable: false },
@@ -38,6 +39,7 @@ let timeSlot = [
   { id: 29, name: "22:00", unavailable: false },
 ];
 let timeSlotEnd = JSON.parse(JSON.stringify(timeSlot));
+const salt = "sugar";
 
 const EventForm = ({ roomId, setStep, data }) => {
   const [startTime, setStartTime] = useState(timeSlot[0]);
@@ -46,6 +48,7 @@ const EventForm = ({ roomId, setStep, data }) => {
 
   const [confirmInfo, setConfirmInfo] = useState(null);
   const [verification, setVerification] = useState("");
+  const [hash, setHash] = useState("");
   const [verificationError, setVerificationError] = useState(true);
 
   const handleTimeSlot = useCallback(
@@ -134,8 +137,11 @@ const EventForm = ({ roomId, setStep, data }) => {
   const diffInMin = differenceInMinutes(eventEnd, eventStart);
 
   const verifyHandle = (e) => {
+    setHash(sha512(e).toString());
     setVerification(e);
-    if (e === confirmInfo[1]) {
+    let hashing = sha512(e + "sugar").toString();
+
+    if (sha512(e + "sugar").toString() === confirmInfo[1]) {
       setVerificationError(false);
     } else {
       setVerificationError(true);
