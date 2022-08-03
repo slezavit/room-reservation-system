@@ -38,11 +38,11 @@ const Details = () => {
         </div>
         <div className="px-4 py-5">
           <h3>Description</h3>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 break-words">
             {state.selectedData.description}
           </p>
           <h3 className="mt-4">Author</h3>
-          <p className="text-sm text-gray-400 mt-2">
+          <p className="text-sm text-gray-400 mt-2 break-words">
             {state.selectedData.email}
           </p>
         </div>

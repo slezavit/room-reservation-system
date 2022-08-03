@@ -4,6 +4,8 @@ import {
   eachDayOfInterval,
   endOfMonth,
   endOfWeek,
+  startOfISOWeek,
+  endOfISOWeek,
   format,
   getDay,
   isEqual,
@@ -50,8 +52,8 @@ const Month = ({ data, state, setState, isLoading }) => {
     return <Loader />;
   }
   let days = eachDayOfInterval({
-    start: startOfWeek(startOfMonth(state.currentDate)),
-    end: endOfWeek(endOfMonth(state.currentDate)),
+    start: startOfISOWeek(startOfMonth(state.currentDate)),
+    end: endOfISOWeek(endOfMonth(state.currentDate)),
   });
 
   let selectedDayMeetings = data
@@ -75,13 +77,13 @@ const Month = ({ data, state, setState, isLoading }) => {
         <div className="md:grid md:grid-cols-3 md:divide-x md:divide-gray-100">
           <div className=" col-span-2 border border-t-0 border-gray-100 md:border-none">
             <div className="grid grid-cols-7 text-xs leading-6 text-center bg-gray-100 sm:rounded-tl-lg">
-              <div className="py-3 border-b border-gray-100">Sun</div>
-              <div className="py-3 border-l border-gray-200">Mon</div>
+              <div className="py-3 border-b border-gray-200">Mon</div>
               <div className="py-3 border-l border-gray-200">Tue</div>
               <div className="py-3 border-l border-gray-200">Wed</div>
               <div className="py-3 border-l border-gray-200">Thu</div>
               <div className="py-3 border-l border-gray-200">Fri</div>
               <div className="py-3 border-l border-gray-200">Sat</div>
+              <div className="py-3 border-l border-gray-100">Sun</div>
             </div>
 
             <div className="grid grid-cols-7 text-sm">
@@ -182,12 +184,12 @@ const Month = ({ data, state, setState, isLoading }) => {
 
 let colStartClasses = [
   "",
+  "col-start-1",
   "col-start-2",
   "col-start-3",
   "col-start-4",
   "col-start-5",
   "col-start-6",
-  "col-start-7",
 ];
 
 export default Month;

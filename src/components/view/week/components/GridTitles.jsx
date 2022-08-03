@@ -1,13 +1,19 @@
 import React from "react";
 import GridDay from "./GridDay";
-import { eachDayOfInterval, endOfWeek, startOfWeek } from "date-fns";
+import {
+  eachDayOfInterval,
+  endOfWeek,
+  startOfWeek,
+  endOfISOWeek,
+  startOfISOWeek,
+} from "date-fns";
 import { useSharedState } from "../../../../store/Context";
 
 const GridTitles = () => {
   const [state] = useSharedState();
   let weekRange = eachDayOfInterval({
-    start: startOfWeek(state.currentDate),
-    end: endOfWeek(state.currentDate),
+    start: startOfISOWeek(state.currentDate),
+    end: endOfISOWeek(state.currentDate),
   });
   // console.log(x);
 

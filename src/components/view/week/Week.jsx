@@ -1,4 +1,4 @@
-import { isSameWeek, parseISO } from "date-fns";
+import { isSameWeek, parseISO, isSameISOWeek } from "date-fns";
 import React from "react";
 import GridEvent from "./components/GridEvent";
 import GridLabels from "./components/GridLabels";
@@ -66,7 +66,7 @@ const Week = ({ data, state, isLoading, setState }) => {
                 isRepeated={true}
               />
             ) : (
-              isSameWeek(parseISO(event.date), state.currentDate) && (
+              isSameISOWeek(parseISO(event.date), state.currentDate) && (
                 <GridEvent
                   key={event.id}
                   id={event.id}

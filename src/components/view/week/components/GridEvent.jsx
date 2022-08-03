@@ -34,9 +34,7 @@ const GridEvent = ({
   const duration = differenceInMinutes(eventEnd, eventStart);
 
   let day = format(eventStart, "i");
-  if (day >= 7) {
-    day = 0;
-  }
+
 
   // styling data
   const { hour, minute } = splitTime(startTime);
@@ -68,7 +66,7 @@ const GridEvent = ({
       exit="hidden"
       className="flex text-black px-[1px] sm:px-[3px] md:px-[5px] lg:px-[7px]"
       style={{
-        gridColumn: day - 1 + 3,
+        gridColumn: day - 1 + 2,
         gridRow: row - 7,
         height: `calc(${height}em)`,
         width: `calc(100%)`,
