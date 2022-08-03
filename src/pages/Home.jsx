@@ -40,15 +40,19 @@ const Home = () => {
         <div className="p-1 bg-gray-100 rounded-xl space-x-1">
           <button
             onClick={() => filterRooms(true)}
-            className={`p-2 rounded-xl ${isAcademic && "bg-white"}`}
+            className={`p-2 rounded-xl ${
+              isAcademic && "bg-white duration-300"
+            }`}
           >
             Academic
           </button>
           <button
             onClick={() => filterRooms(false)}
-            className={`p-2 rounded-xl ${!isAcademic && "bg-white"}`}
+            className={`p-2 rounded-xl ${
+              !isAcademic && "bg-white duration-300"
+            }`}
           >
-            None-academic
+            Others
           </button>
         </div>
       </div>
@@ -65,8 +69,15 @@ const Home = () => {
             to={`schedule/${room.id}`}
             key={room.id}
           >
-            <h3 className="font-semibold mb-1">{room.id}02</h3>
-            <p className="text-xs">{room.name}</p>
+            {room.academic && (
+              <h3 className="font-semibold mb-1">{room.id}02</h3>
+            )}
+
+            <p
+              className={`${room.academic ? "text-xs" : "font-semibold mb-1"}`}
+            >
+              {room.name}
+            </p>
             <p className="text-xs mb-1">{room.seats} seats</p>
             <p className="text-gray-400 text-xs">{room.information}</p>
           </Link>

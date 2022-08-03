@@ -9,6 +9,7 @@ import { ReactComponent as WindowsIcon } from "../../assets/icons/windows.svg";
 import { ReactComponent as PlusIcon } from "../../assets/icons/plus.svg";
 import { ReactComponent as MenuIcon } from "../../assets/icons/hamburger.svg";
 import { ReactComponent as CrossIcon } from "../../assets/icons/cross.svg";
+import { ReactComponent as DocumentIcon } from "../../assets/icons/document-plus.svg";
 import { motion, AnimatePresence } from "framer-motion";
 const Navbar = ({ currentRoom }) => {
   const [isExpand, setIsExpand] = useState(false);
@@ -38,9 +39,10 @@ const Navbar = ({ currentRoom }) => {
           <div>
             <a
               href={`https://ilkhom19.pythonanywhere.com/download/${currentRoom.id}`}
-              className="hidden sm:inline text-green-500 underline mr-4"
+              className="hidden sm:inline-block bg-green-100 py-1 px-1.5 sm:py-2 rounded-lg text-primary mr-2"
             >
-              get xls
+              <DocumentIcon className="w-5 h-5 transform -translate-y-0.5" />{" "}
+              Get xls
             </a>
             <button
               onClick={() => setState({ ...state, isFormOpen: true })}
@@ -64,12 +66,12 @@ const Navbar = ({ currentRoom }) => {
                 ease: "easeOut",
               }}
               exit={{ height: 0 }}
-              className="overflow-hidden"
+              className="overflow-hidden sm:hidden"
             >
               <h3 className="text-gray-500 font-light text-sm text-center mb-2 mt-4">
                 {currentRoom.name} #{currentRoom.id}
               </h3>
-              <div className="flex justify-between gap-x-4">
+              <div className="flex justify-between gap-4">
                 <Link
                   to="/"
                   className=" flex-1 py-2 px-4 bg-gray-100 rounded-lg block text-center"
@@ -78,7 +80,7 @@ const Navbar = ({ currentRoom }) => {
                 </Link>
                 <a
                   href={`https://ilkhom19.pythonanywhere.com/download/${currentRoom.id}`}
-                  className=" flex-1 py-2 px-4 bg-green-200 rounded-lg block text-center"
+                  className=" flex-1 py-2 px-4 bg-green-100 rounded-lg block text-center"
                 >
                   Get xls
                 </a>
