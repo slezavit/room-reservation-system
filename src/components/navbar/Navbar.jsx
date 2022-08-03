@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const Navbar = ({ currentRoom }) => {
   const [isExpand, setIsExpand] = useState(false);
   const [state, setState] = useSharedState();
+
   return (
     <div className="px-2 md:px-10 sticky top-0 sm:static bg-white z-20 border-b border-gray-100">
       <div className="w-full py-3 sm:px-6 sm:py-4">
@@ -34,13 +35,21 @@ const Navbar = ({ currentRoom }) => {
             {state.currentView === "week" &&
               format(state.currentDate, "LLLL do, y")}
           </span>
-          <button
-            onClick={() => setState({ ...state, isFormOpen: true })}
-            className="bg-primary py-1 px-1.5 sm:py-2 rounded-lg text-white"
-          >
-            <PlusIcon className="w-5 h-5 sm:mr-2" />
-            <span className="hidden sm:inline">Add event</span>
-          </button>
+          <div>
+            <a
+              href={`https://ilkhom19.pythonanywhere.com/download/${currentRoom.id}`}
+              className="hidden sm:inline text-green-500 underline mr-4"
+            >
+              get xls
+            </a>
+            <button
+              onClick={() => setState({ ...state, isFormOpen: true })}
+              className="bg-primary py-1 px-1.5 sm:py-2 rounded-lg text-white"
+            >
+              <PlusIcon className="w-5 h-5 sm:mr-2" />
+              <span className="hidden sm:inline">Add event</span>
+            </button>
+          </div>
         </div>
         <AnimatePresence>
           {isExpand && (
@@ -60,12 +69,20 @@ const Navbar = ({ currentRoom }) => {
               <h3 className="text-gray-500 font-light text-sm text-center mb-2 mt-4">
                 {currentRoom.name} #{currentRoom.id}
               </h3>
-              <Link
-                to="/"
-                className="py-2 px-4 bg-gray-100 rounded-lg block text-center"
-              >
-                Back to rooms
-              </Link>
+              <div className="flex justify-between gap-x-4">
+                <Link
+                  to="/"
+                  className=" flex-1 py-2 px-4 bg-gray-100 rounded-lg block text-center"
+                >
+                  Back to rooms
+                </Link>
+                <a
+                  href={`https://ilkhom19.pythonanywhere.com/download/${currentRoom.id}`}
+                  className=" flex-1 py-2 px-4 bg-green-200 rounded-lg block text-center"
+                >
+                  Get xls
+                </a>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
