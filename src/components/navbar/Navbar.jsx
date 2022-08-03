@@ -39,6 +39,8 @@ const Navbar = ({ currentRoom }) => {
           <div>
             <a
               href={`https://ilkhom19.pythonanywhere.com/download/${currentRoom.id}`}
+              target="_blank"
+              rel="noreferrer noopener"
               className="hidden sm:inline-block bg-green-100 py-1 px-1.5 sm:py-2 rounded-lg text-primary mr-2"
             >
               <DocumentIcon className="w-5 h-5 transform -translate-y-0.5" />{" "}
@@ -80,6 +82,8 @@ const Navbar = ({ currentRoom }) => {
                 </Link>
                 <a
                   href={`https://ilkhom19.pythonanywhere.com/download/${currentRoom.id}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   className=" flex-1 py-2 px-4 bg-green-100 rounded-lg block text-center"
                 >
                   Get xls
