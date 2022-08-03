@@ -71,7 +71,7 @@ const Navbar = ({ currentRoom }) => {
               <h3 className="text-gray-500 font-light text-sm text-center mb-2 mt-4">
                 {currentRoom.name} #{currentRoom.id}
               </h3>
-              <div className="flex justify-between gap-4">
+              <div className="flex justify-between space-x-4">
                 <Link
                   to="/"
                   className=" flex-1 py-2 px-4 bg-gray-100 rounded-lg block text-center"
