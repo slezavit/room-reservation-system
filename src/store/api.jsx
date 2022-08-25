@@ -2,6 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: "https://ilkhom19.pythonanywhere.com",
+  // baseURL: "http://127.0.0.1:8000",
 });
 
 // ----------------
@@ -21,7 +22,17 @@ export const getRooms = async () => {
 // Get room events
 export const getRoomEvent = async (roomId) => {
   try {
-    const response = await api.get(`/room/${roomId}`);
+    const response = await api.get(`/events/${roomId}`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get room lectures
+export const getRoomLecture = async (roomId) => {
+  try {
+    const response = await api.get(`/lectures/${roomId}`);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -32,9 +43,28 @@ export const getRoomEvent = async (roomId) => {
 export const addEvent = async (event) => {
   try {
     await api.post(
-      `https://ilkhom19.pythonanywhere.com/room/${event.room}`,
+      `https://ilkhom19.pythonanywhere.com/events/${event.room}`,
       event
     );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get room lectures
+export const getCohorts = async () => {
+  try {
+    const response = await api.get("/cohorts/");
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getCohortData = async (cohortId) => {
+  try {
+    const response = await api.get(`/cohort/${cohortId}`);
+    return response.data;
   } catch (err) {
     console.log(err);
   }

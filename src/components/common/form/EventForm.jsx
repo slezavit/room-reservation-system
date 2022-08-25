@@ -39,7 +39,6 @@ let timeSlot = [
   { id: 29, name: "22:00", unavailable: false },
 ];
 let timeSlotEnd = JSON.parse(JSON.stringify(timeSlot));
-const salt = "sugar";
 
 const EventForm = ({ roomId, setStep, data }) => {
   const [startTime, setStartTime] = useState(timeSlot[0]);
@@ -54,15 +53,16 @@ const EventForm = ({ roomId, setStep, data }) => {
   const handleTimeSlot = useCallback(
     (e) => {
       const sortedData = data
-        .filter(
-          (d) =>
-            format(parseISO(d.date), "eeee") === format(parseISO(e), "eeee")
+        ?.filter((d) =>
+          d.day
+            ? d.day == format(parseISO(e), "i")
+            : format(parseISO(d.date), "eeee") === format(parseISO(e), "eeee")
         )
-        .filter((d) => {
-          return d.type === "event" ? d.date === e : d;
+        ?.filter((d) => {
+          return d.date ? d.date === e : d;
         });
 
-      const a = sortedData.map((d) => [d.start_time, d.end_time]);
+      const a = sortedData?.map((d) => [d.start_time, d.end_time]);
 
       if (a.length !== 0) {
         timeSlot.map((t, idxx) => {
@@ -128,7 +128,7 @@ const EventForm = ({ roomId, setStep, data }) => {
       setConfirmInfo(items);
     }
     handleTimeSlot(format(dateRef.current, "yyyy-LL-dd"));
-  }, [handleTimeSlot]);
+  }, []);
 
   const queryClient = useQueryClient();
 

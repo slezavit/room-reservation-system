@@ -8,7 +8,7 @@ import { fade } from "../../../utils/animations";
 import useWidth from "../../../hooks/useWidth";
 import Loader from "../../common/Loader";
 import { useSwipeable } from "react-swipeable";
-const Day = ({ data, state, setState, isLoading }) => {
+const Day = ({ lectures, events, data, state, setState, isLoading }) => {
   const windowWidth = useWidth();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -41,7 +41,45 @@ const Day = ({ data, state, setState, isLoading }) => {
         <Lines />
         <GridLabels />
         <AnimatePresence exitBeforeEnter>
-          {data?.map((event) =>
+          {lectures.map(
+            (event) =>
+              format(state.currentDate, "e") - 1 === Number(event.day) && (
+                <GridEvent
+                  fade={fade}
+                  key={event.id}
+                  id={event.id}
+                  title={event.title}
+                  day={event.day}
+                  startTime={event.start_time}
+                  endTime={event.end_time}
+                  description={event.description}
+                  email={event.email}
+                  windowWidth={windowWidth}
+                  isRepeated={true}
+                />
+              )
+          )}
+
+          {events.map(
+            (event) =>
+              isSameDay(parseISO(event.date), state.currentDate) && (
+                <GridEvent
+                  fade={fade}
+                  key={event.id}
+                  id={event.id}
+                  title={event.title}
+                  date={event.date}
+                  startTime={event.start_time}
+                  endTime={event.end_time}
+                  description={event.description}
+                  email={event.email}
+                  windowWidth={windowWidth}
+                  isRepeated={false}
+                />
+              )
+          )}
+
+          {/* {data?.map((event) =>
             event.type === "class"
               ? format(state.currentDate, "eeee") ===
                   format(parseISO(event.date), "eeee") && (
@@ -74,7 +112,7 @@ const Day = ({ data, state, setState, isLoading }) => {
                     isRepeated={false}
                   />
                 )
-          )}
+          )} */}
         </AnimatePresence>
       </div>
     </motion.div>

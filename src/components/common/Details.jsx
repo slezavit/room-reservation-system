@@ -24,28 +24,29 @@ const Details = () => {
         <div className="bg-primary text-white px-4 py-5">
           <h3>{state.selectedData.title}</h3>
           <div className="text-sm text-gray-200 mt-2">
-            {state.selectedData.isRepeated ? (
-              <span>{format(parseISO(state.selectedData.date), "EEEE")}</span>
-            ) : (
-              <span>
-                {format(parseISO(state.selectedData.date), "EEEE, MMM do,")}
-              </span>
-            )}
+            {state.selectedData.date &&
+              format(parseISO(state.selectedData.date), "EEEE, MMM do,")}
 
             <span> {state.selectedData.startTime.slice(0, 5)}</span>
             <span> - {state.selectedData.endTime.slice(0, 5)}</span>
           </div>
         </div>
-        <div className="px-4 py-5">
-          <h3>Description</h3>
-          <p className="text-sm text-gray-400 break-words">
-            {state.selectedData.description}
-          </p>
-          <h3 className="mt-4">Author</h3>
-          <p className="text-sm text-gray-400 mt-2 break-words">
-            {state.selectedData.email}
-          </p>
-        </div>
+        {state.selectedData.description && (
+          <div className="px-4 py-5">
+            <h3>Description</h3>
+            <p className="text-sm text-gray-400 break-words">
+              {state.selectedData.description}
+            </p>
+            {state.selectedData.email && (
+              <>
+                <h3 className="mt-4">Author</h3>
+                <p className="text-sm text-gray-400 mt-2 break-words">
+                  {state.selectedData.email}
+                </p>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </motion.div>
   );

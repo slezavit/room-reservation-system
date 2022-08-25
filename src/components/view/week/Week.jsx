@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../../common/Loader";
 import { useSwipeable } from "react-swipeable";
 import { addWeeks } from "date-fns";
-const Week = ({ data, state, isLoading, setState }) => {
+const Week = ({ lectures, events, state, isLoading, setState }) => {
   const windowWidth = useWidth();
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -50,7 +50,7 @@ const Week = ({ data, state, isLoading, setState }) => {
         <GridLabels />
 
         <AnimatePresence>
-          {data?.map((event) =>
+          {/* {data?.map((event) =>
             event.type === "class" ? (
               <GridEvent
                 key={event.id}
@@ -82,6 +82,39 @@ const Week = ({ data, state, isLoading, setState }) => {
                 />
               )
             )
+          )} */}
+          {lectures?.map((lecture) => (
+            <GridEvent
+              key={lecture.id}
+              id={lecture.id}
+              title={lecture.title}
+              day={lecture.day}
+              startTime={lecture.start_time}
+              endTime={lecture.end_time}
+              windowWidth={windowWidth}
+              email={lecture.email}
+              fade={fade}
+              isRepeated={true}
+            />
+          ))}
+
+          {events?.map(
+            (event) =>
+              isSameISOWeek(parseISO(event.date), state.currentDate) && (
+                <GridEvent
+                  key={event.id}
+                  id={event.id}
+                  title={event.title}
+                  date={event.date}
+                  startTime={event.start_time}
+                  endTime={event.end_time}
+                  description={event.description}
+                  windowWidth={windowWidth}
+                  email={event.email}
+                  fade={fade}
+                  isRepeated={false}
+                />
+              )
           )}
         </AnimatePresence>
       </div>

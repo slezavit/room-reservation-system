@@ -14,6 +14,7 @@ function splitTime(time) {
 const GridEvent = ({
   id,
   title,
+  day,
   date,
   startTime,
   endTime,
@@ -25,13 +26,21 @@ const GridEvent = ({
 }) => {
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
-  // data formating
-  const eventStart = new Date(`${date} ${startTime}`.replace(/-/g, "/"));
-  const eventEnd = new Date(`${date} ${endTime}`.replace(/-/g, "/"));
+  let duration;
+  if (!day) {
+    // data formating
+    const eventStart = new Date(`${date} ${startTime}`.replace(/-/g, "/"));
+    const eventEnd = new Date(`${date} ${endTime}`.replace(/-/g, "/"));
+
+    // actual data
+    duration = differenceInMinutes(eventEnd, eventStart);
+  }
+
+  const eventStart = new Date(`2022-1-1 ${startTime}`.replace(/-/g, "/"));
+  const eventEnd = new Date(`2022-1-1 ${endTime}`.replace(/-/g, "/"));
 
   // actual data
-  const duration = differenceInMinutes(eventEnd, eventStart);
-
+  duration = differenceInMinutes(eventEnd, eventStart);
   // styling data
   const { hour, minute } = splitTime(startTime);
   const row = hour + gridPosition.rowStart;

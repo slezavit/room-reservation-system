@@ -9,9 +9,11 @@ const Meeting = ({ meeting, fade }) => {
       initial="hidden"
       animate="visible"
       exit="hidden"
-      onClick={() => setIsOpen(!isOpen)}
-      className={`flex flex-col cursor-pointer px-4 py-2 group rounded-xl mt-2 ${
-        meeting.type === "event" ? "bg-[#fef4e4]" : "bg-[#f5f7fb]"
+      onClick={description ? () => setIsOpen(!isOpen) : null}
+      className={`flex flex-col ${
+        description && "cursor-pointer"
+      } px-4 py-2 group rounded-xl mt-2 ${
+        meeting.date ? "bg-[#fef4e4]" : "bg-[#f5f7fb]"
       }`}
     >
       <div className="flex-auto">

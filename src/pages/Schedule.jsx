@@ -23,16 +23,24 @@ const Schedule = () => {
   }
 
   const {
-    data,
-    isLoading: loadingRoom,
-    isError,
-  } = useQuery(["room", roomId], () => api.getRoomEvent(roomId));
+    data: lectures,
+    isLoading: loadingLecture,
+    isError: lectureError,
+  } = useQuery(["lectures", roomId], () => api.getRoomLecture(roomId));
 
-  const { data: rooms, isLoading: loadingRooms } = useQuery(
-    "rooms",
-    api.getRooms
-  );
-  const isLoading = loadingRoom || loadingRooms;
+  const {
+    data: events,
+    isLoading: loadingEvent,
+    isError: eventError,
+  } = useQuery(["events", roomId], () => api.getRoomEvent(roomId));
+
+  const {
+    data: rooms,
+    isLoading: loadingRooms,
+    isError: roomError,
+  } = useQuery("rooms", api.getRooms);
+  const isLoading = loadingEvent || loadingRooms || loadingLecture;
+  const isError = eventError || lectureError || roomError;
   const currentRoom = rooms?.find((room) => room.id === Number(roomId));
   if (isLoading) {
     return <Loader />;
@@ -57,7 +65,8 @@ const Schedule = () => {
             setState={setState}
             state={state}
             isLoading={isLoading}
-            data={data}
+            lectures={lectures}
+            events={events}
           />
         )}
         {state.currentView === "week" && (
@@ -66,7 +75,8 @@ const Schedule = () => {
             state={state}
             key="2"
             isLoading={isLoading}
-            data={data}
+            lectures={lectures}
+            events={events}
           />
         )}
         {state.currentView === "month" && (
@@ -75,13 +85,21 @@ const Schedule = () => {
             state={state}
             key="3"
             isLoading={isLoading}
-            data={data}
+            lectures={lectures}
+            events={events}
           />
         )}
       </AnimatePresence>
       <AnimatePresence>
         {state.isDetailOpen && <Details key="detail" />}
-        {state.isFormOpen && <Form key="form" roomId={roomId} data={data} />}
+        {state.isFormOpen && (
+          <Form
+            key="form"
+            roomId={roomId}
+            lectures={lectures}
+            events={events}
+          />
+        )}
       </AnimatePresence>
     </motion.div>
   );

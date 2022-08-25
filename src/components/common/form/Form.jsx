@@ -5,7 +5,8 @@ import { ReactComponent as CrossIcon } from "../../../assets/icons/cross.svg";
 
 import { motion } from "framer-motion";
 import EventForm from "./EventForm";
-const Form = ({ roomId, data }) => {
+const Form = ({ roomId, lectures, events }) => {
+  let data = [...lectures, ...events];
   const [state, setState] = useSharedState();
   const [userEmail, setUserEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
@@ -58,7 +59,10 @@ const Form = ({ roomId, data }) => {
       <div className="w-[90vw] h-[80vh] shadow-lg md:w-[600px] rounded-xl bg-white origin-center absolute top-1/2 left-1/2 z-20 transform -translate-x-1/2 -translate-y-1/2">
         <div className="bg-primary text-white px-4 py-5 flex items-center rounded-t-xl h-[15%] relative">
           <h3>Add event</h3>
-          <button onClick={() => setState({ ...state, isFormOpen: false })} className="absolute right-3">
+          <button
+            onClick={() => setState({ ...state, isFormOpen: false })}
+            className="absolute right-3"
+          >
             <CrossIcon />
           </button>
           <div className="text-sm text-gray-200 mt-2"></div>

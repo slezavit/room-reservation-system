@@ -29,7 +29,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Month = ({ data, state, setState, isLoading }) => {
+const Month = ({ lectures, events, state, setState, isLoading }) => {
+  let data = [...lectures, ...events];
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       setState({
@@ -57,9 +58,9 @@ const Month = ({ data, state, setState, isLoading }) => {
   });
 
   let selectedDayMeetings = data
-    .filter((meeting) =>
-      meeting.type === "class"
-        ? format(selectedDay, "eeee") === format(parseISO(meeting.date), "eeee")
+    ?.filter((meeting) =>
+      meeting.day
+        ? format(selectedDay, "i") === meeting.day
         : isSameDay(parseISO(meeting.date), selectedDay)
     )
     .sort((a, b) => parseFloat(a.start_time) - parseFloat(b.start_time));
@@ -97,7 +98,7 @@ const Month = ({ data, state, setState, isLoading }) => {
                     data.some(
                       (meeting) =>
                         isSameDay(parseISO(meeting.date), day) &
-                        (meeting.type === "event")
+                        (meeting.date !== "")
                     )
                       ? {
                           backgroundColor: "#ffffff",
