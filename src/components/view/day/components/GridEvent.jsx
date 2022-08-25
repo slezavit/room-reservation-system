@@ -23,6 +23,8 @@ const GridEvent = ({
   fade,
   windowWidth,
   isRepeated,
+  cohort,
+  instructor,
 }) => {
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
@@ -59,6 +61,8 @@ const GridEvent = ({
         description,
         email,
         isRepeated,
+         instructor,
+        cohort,
       },
     });
   };

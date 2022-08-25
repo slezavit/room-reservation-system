@@ -69,3 +69,13 @@ export const getCohortData = async (cohortId) => {
     console.log(err);
   }
 };
+
+// Get instructors
+export const getInstructors = async () => {
+  try {
+    const response = await api.get("/instructors/");
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

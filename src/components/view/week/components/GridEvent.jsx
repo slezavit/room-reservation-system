@@ -23,6 +23,8 @@ const GridEvent = ({
   email,
   fade,
   isRepeated,
+  cohort,
+  instructor,
 }) => {
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
@@ -41,7 +43,7 @@ const GridEvent = ({
 
   const eventStart = new Date(`2022-1-1 ${startTime}`.replace(/-/g, "/"));
   const eventEnd = new Date(`2022-1-1 ${endTime}`.replace(/-/g, "/"));
-  
+
   // actual data
   duration = differenceInMinutes(eventEnd, eventStart);
 
@@ -63,6 +65,8 @@ const GridEvent = ({
         description,
         email,
         isRepeated,
+        instructor,
+        cohort,
       },
     });
   };

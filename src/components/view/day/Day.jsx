@@ -55,6 +55,8 @@ const Day = ({ lectures, events, data, state, setState, isLoading }) => {
                   description={event.description}
                   email={event.email}
                   windowWidth={windowWidth}
+                  cohort={event.cohort}
+                  instructor={event.instructor}
                   isRepeated={true}
                 />
               )

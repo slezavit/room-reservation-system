@@ -3,8 +3,15 @@ import { useSharedState } from "../../store/Context";
 
 import { format, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-const Details = () => {
+const Details = ({ instructors, cohorts }) => {
   const [state, setState] = useSharedState();
+  let instructor =
+    state.selectedData.instructor &&
+    instructors.find((i) => i.id == state.selectedData.instructor);
+  let cohort =
+    state.selectedData.cohort &&
+    cohorts.find((i) => i.id == state.selectedData.cohort);
+
   if (!state.selectedData) {
     return "No details for this event";
   }
@@ -31,7 +38,7 @@ const Details = () => {
             <span> - {state.selectedData.endTime.slice(0, 5)}</span>
           </div>
         </div>
-        {state.selectedData.description && (
+        {state.selectedData.description ? (
           <div className="px-4 py-5">
             <h3>Description</h3>
             <p className="text-sm text-gray-400 break-words">
@@ -45,6 +52,17 @@ const Details = () => {
                 </p>
               </>
             )}
+          </div>
+        ) : (
+          <div className="px-4 py-5">
+            <h3>Cohort:</h3>
+            <p className="text-sm text-gray-400 break-words">
+              {cohort.major} {cohort.year}
+            </p>
+            <h3 className="mt-4">Faculty:</h3>
+            <p className="text-sm text-gray-400 break-words">
+              {instructor.name}
+            </p>
           </div>
         )}
       </div>

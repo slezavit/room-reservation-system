@@ -94,6 +94,8 @@ const Week = ({ lectures, events, state, isLoading, setState }) => {
               windowWidth={windowWidth}
               email={lecture.email}
               fade={fade}
+              cohort={lecture.cohort}
+              instructor={lecture.instructor}
               isRepeated={true}
             />
           ))}

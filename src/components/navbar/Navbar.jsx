@@ -13,7 +13,6 @@ import { ReactComponent as DocumentIcon } from "../../assets/icons/document-plus
 import { motion, AnimatePresence } from "framer-motion";
 const Navbar = ({ currentRoom }) => {
   const [isExpand, setIsExpand] = useState(false);
-  const [showMore, setShowMore] = useState(false);
   const [state, setState] = useSharedState();
 
   return (
@@ -38,37 +37,15 @@ const Navbar = ({ currentRoom }) => {
               format(state.currentDate, "LLLL do, y")}
           </span>
           <div>
-            {showMore ? (
-              <>
-                {" "}
-                <a
-                  href={`https://ilkhom19.pythonanywhere.com/qr/${currentRoom.id}`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="hidden sm:inline-block bg-blue-100 py-1 px-1.5 sm:py-2 rounded-lg text-primary mr-2"
-                >
-                  <DocumentIcon className="w-5 h-5 transform -translate-y-0.5" />{" "}
-                  Get QR
-                </a>
-                <a
-                  href={`https://ilkhom19.pythonanywhere.com/downloadroom/${currentRoom.id}`}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="hidden sm:inline-block bg-green-100 py-1 px-1.5 sm:py-2 rounded-lg text-primary mr-2"
-                >
-                  <DocumentIcon className="w-5 h-5 transform -translate-y-0.5" />{" "}
-                  Get excel
-                </a>
-              </>
-            ) : (
-              <button
-                onClick={() => setShowMore(true)}
-                className="mr-3 underline"
-              >
-                More
-              </button>
-            )}
-
+            <a
+              href={`https://ilkhom19.pythonanywhere.com/downloadroom/${currentRoom.id}`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="hidden sm:inline-block bg-green-100 py-1 px-1.5 sm:py-2 rounded-lg text-primary mr-2"
+            >
+              <DocumentIcon className="w-5 h-5 transform -translate-y-0.5" />{" "}
+              Get excel
+            </a>
             <button
               onClick={() => setState({ ...state, isFormOpen: true })}
               className="bg-primary py-1 px-1.5 sm:py-2 rounded-lg text-white"
@@ -96,31 +73,21 @@ const Navbar = ({ currentRoom }) => {
               <h3 className="text-gray-500 font-light text-sm text-center mb-2 mt-4">
                 {currentRoom.name} #{currentRoom.id}
               </h3>
-              <div>
-                <div className="flex justify-between space-x-4 mb-2">
-                  <a
-                    href={`https://ilkhom19.pythonanywhere.com/qr/${currentRoom.id}`}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className=" flex-1 py-2 px-4 bg-blue-100 rounded-lg block text-center"
-                  >
-                    Get QR
-                  </a>
-                  <a
-                    href={`https://ilkhom19.pythonanywhere.com/downloadroom/${currentRoom.id}`}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className=" flex-1 py-2 px-4 bg-green-100 rounded-lg block text-center"
-                  >
-                    Get excel
-                  </a>
-                </div>
+              <div className="flex justify-between space-x-4">
                 <Link
                   to="/"
-                  className="py-2 px-4 bg-gray-100 rounded-lg block text-center"
+                  className=" flex-1 py-2 px-4 bg-gray-100 rounded-lg block text-center"
                 >
                   Back to rooms
                 </Link>
+                <a
+                  href={`https://ilkhom19.pythonanywhere.com/downloadroom/${currentRoom.id}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className=" flex-1 py-2 px-4 bg-green-100 rounded-lg block text-center"
+                >
+                  Get excel
+                </a>
               </div>
             </motion.div>
           )}

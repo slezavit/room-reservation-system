@@ -29,7 +29,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Month = ({ lectures, events, state, setState, isLoading }) => {
+const Month = ({
+  lectures,
+  events,
+  state,
+  setState,
+  isLoading,
+  cohorts,
+  instructors,
+}) => {
   let data = [...lectures, ...events];
   const handlers = useSwipeable({
     onSwipedLeft: () => {
@@ -163,7 +171,13 @@ const Month = ({ lectures, events, state, setState, isLoading }) => {
             <ol className="mt-4 text-sm leading-6 text-gray-500">
               {selectedDayMeetings.length > 0 ? (
                 selectedDayMeetings.map((meeting) => (
-                  <Meeting meeting={meeting} key={meeting.id} fade={fade} />
+                  <Meeting
+                    instructors={instructors}
+                    cohorts={cohorts}
+                    meeting={meeting}
+                    key={meeting.id}
+                    fade={fade}
+                  />
                 ))
               ) : (
                 <motion.p

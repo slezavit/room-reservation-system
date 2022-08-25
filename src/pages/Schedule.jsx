@@ -22,6 +22,14 @@ const Schedule = () => {
     roomId = 1;
   }
 
+  const { data: cohorts, isLoading: loadingCohorts } = useQuery(
+    "cohorts",
+    api.getCohorts
+  );
+  const { data: instructors, isLoading: loadingInstructors } = useQuery(
+    "instructors",
+    api.getInstructors
+  );
   const {
     data: lectures,
     isLoading: loadingLecture,
@@ -39,7 +47,12 @@ const Schedule = () => {
     isLoading: loadingRooms,
     isError: roomError,
   } = useQuery("rooms", api.getRooms);
-  const isLoading = loadingEvent || loadingRooms || loadingLecture;
+  const isLoading =
+    loadingEvent ||
+    loadingRooms ||
+    loadingLecture ||
+    loadingCohorts ||
+    loadingInstructors;
   const isError = eventError || lectureError || roomError;
   const currentRoom = rooms?.find((room) => room.id === Number(roomId));
   if (isLoading) {
@@ -87,11 +100,15 @@ const Schedule = () => {
             isLoading={isLoading}
             lectures={lectures}
             events={events}
+            instructors={instructors}
+            cohorts={cohorts}
           />
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {state.isDetailOpen && <Details key="detail" />}
+        {state.isDetailOpen && (
+          <Details key="detail" instructors={instructors} cohorts={cohorts} />
+        )}
         {state.isFormOpen && (
           <Form
             key="form"
