@@ -21,9 +21,7 @@ const Meeting = ({ meeting, fade, cohorts, instructors }) => {
       animate="visible"
       exit="hidden"
       onClick={() => setIsOpen(!isOpen)}
-      className={`flex flex-col ${
-        description && "cursor-pointer"
-      } px-4 py-2 group rounded-xl mt-2 ${
+      className={`flex flex-col cursor-pointer px-4 py-2 group rounded-xl mt-2 ${
         meeting.date ? "bg-[#fef4e4]" : "bg-[#f5f7fb]"
       }`}
     >
