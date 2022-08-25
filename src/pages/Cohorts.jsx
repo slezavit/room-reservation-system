@@ -15,7 +15,6 @@ import Loader from "../components/common/Loader";
 import Error from "./Error";
 import Form from "../components/common/form/Form";
 import CohortWeek from "../components/cohort/CohortWeek";
-import { ReactComponent as WindowsIcon } from "../assets/icons/windows.svg";
 const Cohorts = () => {
   const [state, setState] = useSharedState();
   let { cohortId } = useParams();
@@ -30,12 +29,17 @@ const Cohorts = () => {
     isError: cohortError,
   } = useQuery(["cohort", cohortId], () => api.getCohortData(cohortId));
 
+  const { data: instructors, isLoading: loadingInstructors } = useQuery(
+    "instructors",
+    api.getInstructors
+  );
+
   const {
     data: cohorts,
     isLoading: loadingcohorts,
     isError: roomcohorts,
   } = useQuery("cohorts", api.getCohorts);
-  const isLoading = loadingcohorts || cohortLoading;
+  const isLoading = loadingcohorts || cohortLoading || loadingInstructors;
   const isError = cohortError || roomcohorts;
   const currentRoom = cohorts?.find((room) => room.id === Number(cohortId));
   if (isLoading) {
@@ -53,7 +57,7 @@ const Cohorts = () => {
     >
       <div className="flex justify-between items-center px-2 md:px-12 py-3">
         <Link className="block" to="/">
-          <WindowsIcon className="w-5" /> Rooms
+          Go back
         </Link>
         <span className="font-bold">
           {currentRoom.major} {currentRoom.year}
@@ -70,7 +74,9 @@ const Cohorts = () => {
       <CohortWeek cohortData={cohortData} />
 
       <AnimatePresence>
-        {state.isDetailOpen && <Details key="detail" />}
+        {state.isDetailOpen && (
+          <Details instructors={instructors} cohorts={cohorts} key="detail" />
+        )}
       </AnimatePresence>
     </motion.div>
   );
