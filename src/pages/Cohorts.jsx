@@ -63,7 +63,7 @@ const Cohorts = () => {
           {currentRoom.major} {currentRoom.year}
         </span>
         <a
-          href={`http://127.0.0.1:8000/downloadcohort/${currentRoom.id}`}
+          href={`https://ilkhom19.pythonanywhere.com/downloadcohort/${currentRoom.id}`}
           target="_blank"
           rel="noreferrer noopener"
           className="py-2 px-4 bg-green-100 rounded-lg block text-center"
