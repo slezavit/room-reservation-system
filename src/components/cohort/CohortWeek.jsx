@@ -65,6 +65,7 @@ const CohortWeek = ({ cohortData }) => {
             isRepeated={true}
             cohort={lecture.cohort}
             instructor={lecture.instructor}
+            room={lecture.room}
           />
         ))}
       </div>
