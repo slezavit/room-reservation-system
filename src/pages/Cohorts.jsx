@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSharedState } from "../store/Context";
 import { useQuery } from "react-query";
 import * as api from "../store/api";
@@ -11,10 +11,11 @@ import Error from "./Error";
 import CohortWeek from "../components/cohort/CohortWeek";
 const Cohorts = () => {
   const [state] = useSharedState();
+  let navigate = useNavigate();
   let { cohortId } = useParams();
 
   if (!cohortId) {
-    cohortId = 1;
+    navigate("/error");
   }
 
   const {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSharedState } from "../store/Context";
 import Day from "../components/view/day/Day";
 import Month from "../components/view/month/Month";
@@ -16,10 +16,11 @@ import Error from "./Error";
 import Form from "../components/common/form/Form";
 const Schedule = () => {
   const [state, setState] = useSharedState();
+  let navigate = useNavigate();
   let { roomId } = useParams();
 
   if (!roomId) {
-    roomId = 1;
+    navigate("/error");
   }
 
   const { data: cohorts, isLoading: loadingCohorts } = useQuery(
