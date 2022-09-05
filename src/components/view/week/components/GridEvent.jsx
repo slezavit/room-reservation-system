@@ -97,7 +97,9 @@ const GridEvent = ({
         <span className="hidden md:block md:text-[10px] lg:text-xs text-gray-400">
           {startTime.slice(0, 5)} - {endTime.slice(0, 5)}
         </span>
-        <span className="text-primary">{title}</span>
+        <p className="text-primary text-[9px] sm:text-[12px] leading-[12px] sm:leading-normal">
+          {title}
+        </p>
       </small>
     </motion.div>
   );
