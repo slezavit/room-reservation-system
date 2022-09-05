@@ -1,4 +1,4 @@
-import { isSameWeek, parseISO, isSameISOWeek } from "date-fns";
+import { parseISO, isSameISOWeek } from "date-fns";
 import React from "react";
 import GridEvent from "./components/GridEvent";
 import GridLabels from "./components/GridLabels";
@@ -97,6 +97,7 @@ const Week = ({ lectures, events, state, isLoading, setState }) => {
               cohort={lecture.cohort}
               instructor={lecture.instructor}
               isRepeated={true}
+              room={lecture.room}
             />
           ))}
 
@@ -115,6 +116,7 @@ const Week = ({ lectures, events, state, isLoading, setState }) => {
                   email={event.email}
                   fade={fade}
                   isRepeated={false}
+                  room={event.room}
                 />
               )
           )}

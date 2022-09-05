@@ -50,6 +50,10 @@ const Details = ({ instructors, cohorts }) => {
                 <p className="text-sm text-gray-400 mt-2 break-words">
                   {state.selectedData.email}
                 </p>
+                <h3 className="mt-4">Room:</h3>
+                <p className="text-sm text-gray-400 break-words">
+                  {state.selectedData.room}
+                </p>
               </>
             )}
           </div>
@@ -62,6 +66,10 @@ const Details = ({ instructors, cohorts }) => {
             <h3 className="mt-4">Faculty:</h3>
             <p className="text-sm text-gray-400 break-words">
               {instructor.name}
+            </p>
+            <h3 className="mt-4">Room:</h3>
+            <p className="text-sm text-gray-400 break-words">
+              {state.selectedData.room}
             </p>
           </div>
         )}

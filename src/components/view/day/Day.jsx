@@ -58,6 +58,7 @@ const Day = ({ lectures, events, data, state, setState, isLoading }) => {
                   cohort={event.cohort}
                   instructor={event.instructor}
                   isRepeated={true}
+                  room={event.room}
                 />
               )
           )}
@@ -77,6 +78,7 @@ const Day = ({ lectures, events, data, state, setState, isLoading }) => {
                   email={event.email}
                   windowWidth={windowWidth}
                   isRepeated={false}
+                  room={event.room}
                 />
               )
           )}
