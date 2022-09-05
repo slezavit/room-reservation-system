@@ -1,11 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSharedState } from "../store/Context";
-import Day from "../components/view/day/Day";
-import Month from "../components/view/month/Month";
-import Week from "../components/view/week/Week";
-import Navbar from "../components/navbar/Navbar";
-import Header from "../components/header/Header";
 import { useQuery } from "react-query";
 import * as api from "../store/api";
 import Details from "../components/common/Details";
@@ -13,10 +8,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fade } from "../utils/animations";
 import Loader from "../components/common/Loader";
 import Error from "./Error";
-import Form from "../components/common/form/Form";
 import CohortWeek from "../components/cohort/CohortWeek";
 const Cohorts = () => {
-  const [state, setState] = useSharedState();
+  const [state] = useSharedState();
   let { cohortId } = useParams();
 
   if (!cohortId) {
