@@ -83,7 +83,7 @@ const EventForm = ({ roomId, setStep, data }) => {
               end += 30;
             }
 
-            if (start <= slot && slot < end) {
+            if (start < slot && slot < end) {
               timeSlot[idxx].unavailable = true;
             }
             return true;

@@ -40,13 +40,13 @@ const Details = ({ instructors, cohorts }) => {
         </div>
         {state.selectedData.description ? (
           <div className="px-4 py-5">
-            <h3>Description</h3>
+            <h3>Description:</h3>
             <p className="text-sm text-gray-400 break-words">
               {state.selectedData.description}
             </p>
             {state.selectedData.email && (
               <>
-                <h3 className="mt-4">Author</h3>
+                <h3 className="mt-4">Organizer:</h3>
                 <p className="text-sm text-gray-400 mt-2 break-words">
                   {state.selectedData.email}
                 </p>
