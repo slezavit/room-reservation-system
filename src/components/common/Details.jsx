@@ -61,7 +61,9 @@ const Details = ({ instructors, cohorts }) => {
           <div className="px-4 py-5">
             <h3>Cohort:</h3>
             <p className="text-sm text-gray-400 break-words">
-              {cohort.major} {cohort.year}
+              {cohort.year === 1999
+                ? "All cohorts"
+                : cohort.major + " " + cohort.year}
             </p>
             <h3 className="mt-4">Faculty:</h3>
             <p className="text-sm text-gray-400 break-words">
@@ -69,7 +71,9 @@ const Details = ({ instructors, cohorts }) => {
             </p>
             <h3 className="mt-4">Room:</h3>
             <p className="text-sm text-gray-400 break-words">
-              {state.selectedData.room}
+              {state.selectedData.room === 0
+                ? "Online"
+                : state.selectedData.room}
             </p>
           </div>
         )}

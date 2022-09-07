@@ -16,6 +16,10 @@ const Home = () => {
     "cohorts",
     api.getCohorts
   );
+  const { data: instructors, isLoading: instructorsLoading } = useQuery(
+    "instructors",
+    api.getInstructors
+  );
   const [filteredData, setFilteredData] = useState();
   useEffect(() => {
     setFilteredData(data?.filter((room) => room.academic === true));
@@ -56,9 +60,17 @@ const Home = () => {
           onClick={() => setActiveLink("cohorts")}
           className={`${
             activeLink === "cohorts" ? "border-b-black" : "border-b-white"
-          } cursor-pointer border-b duration-300`}
+          } mr-3 cursor-pointer border-b duration-300`}
         >
           Cohorts
+        </h3>
+        <h3
+          onClick={() => setActiveLink("instructors")}
+          className={`${
+            activeLink === "instructors" ? "border-b-black" : "border-b-white"
+          } cursor-pointer border-b duration-300`}
+        >
+          Instructors
         </h3>
       </div>
       {activeLink === "rooms" && (
@@ -85,33 +97,36 @@ const Home = () => {
             </div>
           </div>
           <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
-            {filteredData?.map((room) => (
-              <Link
-                onClick={() =>
-                  setState({
-                    ...state,
-                    currentDate: new Date(),
-                  })
-                }
-                className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
-                to={`schedule/${room.id}`}
-                key={room.id}
-              >
-                {room.academic && (
-                  <h3 className="font-semibold mb-1">{room.id}</h3>
-                )}
+            {filteredData?.map(
+              (room) =>
+                room.id !== 0 && (
+                  <Link
+                    onClick={() =>
+                      setState({
+                        ...state,
+                        currentDate: new Date(),
+                      })
+                    }
+                    className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
+                    to={`schedule/${room.id}`}
+                    key={room.id}
+                  >
+                    {room.academic && (
+                      <h3 className="font-semibold mb-1">{room.id}</h3>
+                    )}
 
-                <p
-                  className={`${
-                    room.academic ? "text-xs" : "font-semibold mb-1"
-                  }`}
-                >
-                  {room.name}
-                </p>
-                <p className="text-xs mb-1">{room.seats} seats</p>
-                <p className="text-gray-400 text-xs">{room.information}</p>
-              </Link>
-            ))}
+                    <p
+                      className={`${
+                        room.academic ? "text-xs" : "font-semibold mb-1"
+                      }`}
+                    >
+                      {room.name}
+                    </p>
+                    <p className="text-xs mb-1">{room.seats} seats</p>
+                    <p className="text-gray-400 text-xs">{room.information}</p>
+                  </Link>
+                )
+            )}
           </div>
         </>
       )}
@@ -119,17 +134,40 @@ const Home = () => {
       {activeLink === "cohorts" && (
         <>
           <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
-            {cohorts?.map((cohort) => (
-              <Link
-                className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
-                to={`cohort/${cohort.id}`}
-                key={cohort.id}
-              >
-                <h3 className="font-semibold">
-                  {cohort.major} {cohort.year}
-                </h3>
-              </Link>
-            ))}
+            {cohorts?.map(
+              (cohort) =>
+                cohort.id !== 15 && (
+                  <Link
+                    className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
+                    to={`cohort/${cohort.id}`}
+                    key={cohort.id}
+                  >
+                    <h3 className="font-semibold">
+                      {cohort.major} {cohort.year}
+                    </h3>
+                  </Link>
+                )
+            )}
+          </div>
+        </>
+      )}
+
+      {activeLink === "instructors" && (
+        <>
+          <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+            {instructors?.map(
+              (instructor) =>
+                instructor.id !== 32 &&
+                instructor.id !== 33 && (
+                  <Link
+                    className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
+                    to={`instructor/${instructor.id}`}
+                    key={instructor.id}
+                  >
+                    <h3 className="font-semibold">{instructor.name}</h3>
+                  </Link>
+                )
+            )}
           </div>
         </>
       )}

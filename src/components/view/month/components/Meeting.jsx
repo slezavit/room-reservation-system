@@ -11,8 +11,8 @@ const Meeting = ({ meeting, fade, cohorts, instructors }) => {
     instructor,
   } = meeting;
   let instructorData =
-    instructor && instructors.find((i) => i.id == instructor);
-  let cohortData = cohort && cohorts.find((i) => i.id == cohort);
+    instructor && instructors.find((i) => i.id === parseInt(instructor));
+  let cohortData = cohort && cohorts.find((i) => i.id === parseInt(cohort));
   const [isOpen, setIsOpen] = useState(false);
   return (
     <motion.li
@@ -58,7 +58,9 @@ const Meeting = ({ meeting, fade, cohorts, instructors }) => {
               <>
                 <p>
                   <span className="font-bold">Cohort: </span>
-                  {cohortData.major} {cohortData.year}
+                  {cohortData.year === 1999
+                    ? "All cohorts"
+                    : cohortData.major + " " + cohortData.year}
                 </p>
                 <p>
                   <span className="font-bold">Faculty: </span>{" "}

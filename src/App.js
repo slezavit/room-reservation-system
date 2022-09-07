@@ -7,6 +7,7 @@ import { AnimatePresence } from "framer-motion";
 import { SharedStateProvider } from "./store/Context";
 import Error from "./pages/Error";
 import Cohorts from "./pages/Cohorts";
+import Instructors from "./pages/Instructors";
 
 function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
             <Route path="schedule" element={<Schedule />} />
             <Route path="schedule/:roomId" element={<Schedule />} />
             <Route path="cohort/:cohortId" element={<Cohorts />} />
+            <Route path="instructor/:cohortId" element={<Instructors />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </AnimatePresence>

@@ -6,7 +6,7 @@ import GridTitles from "../view/week/components/GridTitles";
 import useWidth from "../../hooks/useWidth";
 import { ReactComponent as DocumentIcon } from "../../assets/icons/document-filled.svg";
 
-const CohortWeek = ({ cohortData }) => {
+const CohortWeek = ({ instructorData }) => {
   const windowWidth = useWidth();
   return (
     <div className="pb-2 sm:px-2 md:px-10">
@@ -51,7 +51,7 @@ const CohortWeek = ({ cohortData }) => {
               )
             )
           )} */}
-        {cohortData?.map((lecture) => (
+        {instructorData?.map((lecture) => (
           <GridEvent
             key={lecture.id}
             id={lecture.id}
@@ -60,10 +60,11 @@ const CohortWeek = ({ cohortData }) => {
             startTime={lecture.start_time}
             endTime={lecture.end_time}
             windowWidth={windowWidth}
+            email={lecture.email}
+            isRepeated={true}
             cohort={lecture.cohort}
             instructor={lecture.instructor}
             room={lecture.room}
-            isRepeated={true}
           />
         ))}
       </div>

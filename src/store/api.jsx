@@ -79,3 +79,12 @@ export const getInstructors = async () => {
     console.log(err);
   }
 };
+
+export const getInstructorData = async (instructorId) => {
+  try {
+    const response = await api.get(`/instructor/${instructorId}`);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

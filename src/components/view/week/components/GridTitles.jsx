@@ -1,12 +1,6 @@
 import React from "react";
 import GridDay from "./GridDay";
-import {
-  eachDayOfInterval,
-  endOfWeek,
-  startOfWeek,
-  endOfISOWeek,
-  startOfISOWeek,
-} from "date-fns";
+import { eachDayOfInterval, endOfISOWeek, startOfISOWeek } from "date-fns";
 import { useSharedState } from "../../../../store/Context";
 
 const GridTitles = () => {

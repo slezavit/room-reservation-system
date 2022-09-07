@@ -47,7 +47,6 @@ const EventForm = ({ roomId, setStep, data }) => {
 
   const [confirmInfo, setConfirmInfo] = useState(null);
   const [verification, setVerification] = useState("");
-  const [hash, setHash] = useState("");
   const [verificationError, setVerificationError] = useState(true);
 
   const handleTimeSlot = useCallback(
@@ -137,9 +136,7 @@ const EventForm = ({ roomId, setStep, data }) => {
   const diffInMin = differenceInMinutes(eventEnd, eventStart);
 
   const verifyHandle = (e) => {
-    setHash(sha512(e).toString());
     setVerification(e);
-    let hashing = sha512(e + "sugar").toString();
 
     if (sha512(e + "sugar").toString() === confirmInfo[1]) {
       setVerificationError(false);

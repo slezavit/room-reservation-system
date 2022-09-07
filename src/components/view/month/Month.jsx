@@ -3,7 +3,6 @@ import "./style.css";
 import {
   eachDayOfInterval,
   endOfMonth,
-  endOfWeek,
   startOfISOWeek,
   endOfISOWeek,
   format,
@@ -15,7 +14,6 @@ import {
   parse,
   parseISO,
   startOfToday,
-  startOfWeek,
 } from "date-fns";
 import { useState } from "react";
 import { startOfMonth } from "date-fns/esm";
