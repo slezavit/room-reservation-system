@@ -17,7 +17,10 @@ const Instructors = () => {
   if (!cohortId) {
     navigate("/error");
   }
-
+  const { data: rooms, isLoading: roomLoading } = useQuery(
+    "rooms",
+    api.getRooms
+  );
   const {
     data: instructorData,
     isLoading: instructorLoading,
@@ -34,7 +37,8 @@ const Instructors = () => {
     isError: roomcohorts,
   } = useQuery("cohorts", api.getCohorts);
 
-  const isLoading = instructorLoading || loadingInstructors || loadingcohorts;
+  const isLoading =
+    instructorLoading || loadingInstructors || loadingcohorts || roomLoading;
   const isError = instructorError || roomcohorts;
   const currentInstructor = instructors?.find((i) => i.id === Number(cohortId));
   if (isLoading) {
@@ -50,21 +54,23 @@ const Instructors = () => {
       animate="visible"
       exit="hidden"
     >
-      <div className="flex justify-between items-center px-2 md:px-12 py-3">
+      <div className="flex justify-between items-center px-2 md:px-12 py-3 flex-1 text-sm">
         <Link className="block" to="/">
           Go back
         </Link>
-        <span className="font-bold">{currentInstructor.name}</span>
+        <span className="font-bold text-center text-sm flex-1">
+          {currentInstructor.name}
+        </span>
         <a
           href={`https://ilkhom19.pythonanywhere.com/downloadfaculty/${currentInstructor.id}`}
           target="_blank"
           rel="noreferrer noopener"
-          className="py-2 px-4 bg-green-100 rounded-lg block text-center"
+          className="py-2 px-4 bg-green-100 rounded-lg block text-center text-sm flex-2"
         >
           Get excel
         </a>
       </div>
-      <CohortWeek cohortData={instructorData} />
+      <CohortWeek rooms={rooms} cohortData={instructorData} />
 
       <AnimatePresence>
         {state.isDetailOpen && (

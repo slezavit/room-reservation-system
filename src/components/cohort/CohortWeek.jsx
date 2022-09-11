@@ -5,8 +5,11 @@ import GridLines from "../view/week/components/GridLines";
 import GridTitles from "../view/week/components/GridTitles";
 import useWidth from "../../hooks/useWidth";
 import { ReactComponent as DocumentIcon } from "../../assets/icons/document-filled.svg";
+import { useLocation } from "react-router-dom";
 
-const CohortWeek = ({ cohortData }) => {
+const CohortWeek = ({ cohortData, rooms }) => {
+  let location = useLocation();
+  let pathName = location.pathname.split("/")[1];
   const windowWidth = useWidth();
   return (
     <div className="pb-2 sm:px-2 md:px-10">
@@ -15,7 +18,7 @@ const CohortWeek = ({ cohortData }) => {
           <DocumentIcon className="w-5 md:w-6" />
         </span>
         <GridLines />
-        <GridTitles />
+        <GridTitles pathName="cohort" />
         <GridLabels />
 
         {/* {data?.map((event) =>
@@ -64,6 +67,8 @@ const CohortWeek = ({ cohortData }) => {
             instructor={lecture.instructor}
             room={lecture.room}
             isRepeated={true}
+            pathName={pathName}
+            rooms={rooms}
           />
         ))}
       </div>

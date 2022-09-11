@@ -12,7 +12,7 @@ const dictionary = {
   6: "Sat",
   7: "Sun",
 };
-const GridDay = ({ day, id }) => {
+const GridDay = ({ day, id, pathName }) => {
   const [state, setState] = useSharedState();
   const title = dictionary[id];
 
@@ -31,7 +31,7 @@ const GridDay = ({ day, id }) => {
       style={{ gridRow: 1, gridColumn: id + gridPosition.columnStart }}
     >
       <small className="flex justify-center items-center flex-col text-[10px] md:text-xs">
-        {title} <span>{format(day, "d")}</span>
+        {title} <span>{pathName !== "cohort" && format(day, "d")}</span>
       </small>
     </div>
   );

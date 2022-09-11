@@ -26,6 +26,8 @@ const GridEvent = ({
   cohort,
   instructor,
   room,
+  pathName = null,
+  rooms,
 }) => {
   const [state, setState] = useSharedState();
   let eventHeight = windowWidth < 640 ? 3 : 5;
@@ -73,6 +75,9 @@ const GridEvent = ({
     });
   };
 
+  // console.log(rooms);
+  const roomColor = rooms?.find((r) => r.id == room).color;
+
   return (
     <motion.div
       variants={fade}
@@ -90,10 +95,13 @@ const GridEvent = ({
       onClick={selectHandle}
     >
       <small
-        className={`break-all leading-[20px] overflow-hidden text-ellipsis py-1 md:p-2 md:font-medium text-xs md:text-sm cursor-pointer border sm:border-[2px] md:border-[3px] p-1 w-full h-full rounded sm:rounded-md ${
-          !isRepeated
-            ? "bg-[#fef4e4] border-[#efe5d6]"
-            : "bg-[#f5f7fb] border-[#e5e7eb]"
+        style={{ background: `#${roomColor}` }}
+        className={`break-all leading-[20px] overflow-hidden text-ellipsis py-1 md:p-2 md:font-medium text-xs md:text-sm cursor-pointer border sm:border-[2px] md:border-[3px] border-[#efefef] p-1 w-full h-full rounded sm:rounded-md ${
+          pathName == null
+            ? !isRepeated
+              ? "bg-[#fef4e4] border-[#efe5d6]"
+              : "bg-[#f5f7fb] border-[#e5e7eb]"
+            : ""
         }`}
       >
         <span className="hidden md:block md:text-[10px] lg:text-xs text-gray-400">

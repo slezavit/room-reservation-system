@@ -18,6 +18,11 @@ const Cohorts = () => {
     navigate("/error");
   }
 
+  const { data: rooms, isLoading: roomLoading } = useQuery(
+    "rooms",
+    api.getRooms
+  );
+
   const {
     data: cohortData,
     isLoading: cohortLoading,
@@ -34,9 +39,11 @@ const Cohorts = () => {
     isLoading: loadingcohorts,
     isError: roomcohorts,
   } = useQuery("cohorts", api.getCohorts);
-  const isLoading = loadingcohorts || cohortLoading || loadingInstructors;
+  const isLoading =
+    loadingcohorts || cohortLoading || loadingInstructors || roomLoading;
   const isError = cohortError || roomcohorts;
   const currentRoom = cohorts?.find((room) => room.id === Number(cohortId));
+
   if (isLoading) {
     return <Loader />;
   }
@@ -66,7 +73,7 @@ const Cohorts = () => {
           Get excel
         </a>
       </div>
-      <CohortWeek cohortData={cohortData} />
+      <CohortWeek rooms={rooms} cohortData={cohortData} />
 
       <AnimatePresence>
         {state.isDetailOpen && (
