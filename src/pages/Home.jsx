@@ -107,7 +107,8 @@ const Home = () => {
                         currentDate: new Date(),
                       })
                     }
-                    className="block bg-[#e7e7e74b] py-4 px-2 rounded-lg duration-300 hover:bg-[#e7e7e7]"
+                    style={{ backgroundColor: `#${room.color}` }}
+                    className="block py-4 px-2 rounded-lg duration-300 border"
                     to={`schedule/${room.id}`}
                     key={room.id}
                   >
