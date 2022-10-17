@@ -37,13 +37,6 @@ const Form = ({ roomId, lectures, events }) => {
     e.preventDefault();
   };
 
-  if (step === 3) {
-    setTimeout(() => {
-      setState({ ...state, isFormOpen: false });
-      setStep(1);
-    }, 2000);
-  }
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -74,7 +67,8 @@ const Form = ({ roomId, lectures, events }) => {
                 onSubmit={emailError ? refresh : handleEmail}
                 className="space-y-3"
               >
-                <p>Enter your UCA email, so we can send a verification code</p>
+                <p>Enter your UCA email to receive a verification code. 
+                Check your junk folder!</p>
                 {emailError && (
                   <p className="text-red-300">
                     Email should end with @ucentralasia.org
@@ -83,7 +77,7 @@ const Form = ({ roomId, lectures, events }) => {
                 <input
                   className="w-full border px-3 py-2 rounded-xl"
                   type="email"
-                  placeholder="email"
+                  placeholder="Email"
                   value={userEmail}
                   onChange={(e) => emailVerify(e.target.value)}
                   required

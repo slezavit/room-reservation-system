@@ -37,6 +37,8 @@ let timeSlot = [
   { id: 27, name: "21:00", unavailable: false },
   { id: 28, name: "21:30", unavailable: false },
   { id: 29, name: "22:00", unavailable: false },
+  { id: 30, name: "22:30", unavailable: false },
+  { id: 31, name: "23:00", unavailable: false },
 ];
 let timeSlotEnd = JSON.parse(JSON.stringify(timeSlot));
 
