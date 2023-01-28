@@ -98,7 +98,7 @@ const Month = ({
                 <motion.div
                   variants={fade}
                   initial="hidden"
-                  animate="visible"
+                  animate="visibaaale"
                   exit="hidden"
                   style={
                     data.some(
