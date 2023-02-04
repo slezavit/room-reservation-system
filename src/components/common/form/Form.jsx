@@ -15,7 +15,7 @@ const Form = ({ roomId, lectures, events }) => {
   const handleEmail = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "https://ilkhom19.pythonanywhere.com/mail/",
+      "http://52.198.226.89/api/verification/",
       { email: userEmail }
     );
     localStorage.setItem("confirmCode", JSON.stringify(response.data));
