@@ -6,6 +6,7 @@ import { useSharedState } from "../store/Context";
 import { motion } from "framer-motion";
 import { fade } from "../utils/animations";
 import Loader from "../components/common/Loader";
+import Logo from "../assets/img/big-logo.png";
 
 const Home = () => {
   const [state, setState] = useSharedState();
@@ -47,7 +48,7 @@ const Home = () => {
       animate="visible"
       exit="hidden"
     >
-      <div className="px-6 py-4 md:px-10 md:py-6 border-b border-gray-100 mb-4 flex">
+      <div className="px-6 py-4 md:px-10 md:py-6 border-b border-gray-100 mb-4 flex relative justify-end md:justify-center">
         <h3
           onClick={() => setActiveLink("rooms")}
           className={`${
@@ -72,6 +73,10 @@ const Home = () => {
         >
           Instructors
         </h3>
+
+        <div className="absolute left-0 md:left-4 -top-5 md:-top-2">
+          <img className="w-24" src={Logo} />
+        </div>
       </div>
       {activeLink === "rooms" && (
         <>
