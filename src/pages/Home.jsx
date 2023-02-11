@@ -48,33 +48,35 @@ const Home = () => {
       animate="visible"
       exit="hidden"
     >
-      <div className="px-6 py-4 md:px-10 md:py-6 border-b border-gray-100 mb-4 flex relative justify-end md:justify-center">
-        <h3
-          onClick={() => setActiveLink("rooms")}
-          className={`${
-            activeLink === "rooms" ? "border-b-black" : "border-b-white"
-          }  mr-3 cursor-pointer border-b duration-300`}
-        >
-          Rooms
-        </h3>
-        <h3
-          onClick={() => setActiveLink("cohorts")}
-          className={`${
-            activeLink === "cohorts" ? "border-b-black" : "border-b-white"
-          } mr-3 cursor-pointer border-b duration-300`}
-        >
-          Cohorts
-        </h3>
-        <h3
-          onClick={() => setActiveLink("instructors")}
-          className={`${
-            activeLink === "instructors" ? "border-b-black" : "border-b-white"
-          } cursor-pointer border-b duration-300`}
-        >
-          Instructors
-        </h3>
+      <div className="px-6 py-4 sm:px-20 xl:px-52 md:py-6  border-b border-gray-100 mb-4 flex relative justify-end md:justify-end">
+        <div className="flex ">
+          <h3
+            onClick={() => setActiveLink("rooms")}
+            className={`${
+              activeLink === "rooms" ? "border-b-black" : "border-b-white"
+            }  mr-3 cursor-pointer border-b duration-300`}
+          >
+            Rooms
+          </h3>
+          <h3
+            onClick={() => setActiveLink("cohorts")}
+            className={`${
+              activeLink === "cohorts" ? "border-b-black" : "border-b-white"
+            } mr-3 cursor-pointer border-b duration-300`}
+          >
+            Cohorts
+          </h3>
+          <h3
+            onClick={() => setActiveLink("instructors")}
+            className={`${
+              activeLink === "instructors" ? "border-b-black" : "border-b-white"
+            } cursor-pointer border-b duration-300`}
+          >
+            Instructors
+          </h3>
+        </div>
 
-        <div className="absolute left-0 md:left-4 -top-5 md:-top-2">
+        <div className="absolute left-0 sm:left-16 md:left-19 xl:left-48 -top-5 md:-top-2">
           <img className="w-24" src={Logo} />
         </div>
       </div>
@@ -101,7 +103,7 @@ const Home = () => {
               </button>
             </div>
           </div>
-          <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+          <div className="p-2 grid grid-cols-2 sm:px-20 xl:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {filteredData?.map(
               (room) =>
                 room.id !== 0 && (
@@ -139,7 +141,7 @@ const Home = () => {
 
       {activeLink === "cohorts" && (
         <>
-          <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+          <div className="p-2 grid grid-cols-2 sm:px-20 xl:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {cohorts?.map(
               (cohort) =>
                 cohort.id !== 15 && (
@@ -160,7 +162,7 @@ const Home = () => {
 
       {activeLink === "instructors" && (
         <>
-          <div className="p-2 grid grid-cols-2 sm:px-28 md:px-36 lg:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
+          <div className="p-2 grid grid-cols-2 sm:px-20 xl:px-52 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
             {instructors?.map(
               (instructor) =>
                 instructor.id !== 32 &&
