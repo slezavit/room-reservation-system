@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import * as api from "../store/api";
@@ -7,11 +7,47 @@ import { motion } from "framer-motion";
 import { fade } from "../utils/animations";
 import Loader from "../components/common/Loader";
 import Logo from "../assets/img/big-logo.png";
+import { format, parseISO } from "date-fns";
+import Meeting from "../components/view/month/components/Meeting";
+import EventMeeting from "../components/view/month/components/EventMeeting";
 
 const Home = () => {
   const [state, setState] = useSharedState();
   const [activeLink, setActiveLink] = useState("rooms");
   const [isAcademic, setIsAcademic] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const parentRef = useRef(null);
+
+  useEffect(() => {
+    if (parentRef.current !== null) {
+      const parentDiv = parentRef.current;
+      const today = new Date();
+      const allDivs = parentDiv.querySelectorAll("[data-date]");
+      let closestDivTop = null;
+      let closestDivDistance = Infinity;
+      allDivs.forEach((div) => {
+        const divDate = new Date(div.dataset.date);
+        const distance = Math.abs(divDate - today);
+        if (distance < closestDivDistance) {
+          closestDivTop = div.offsetTop;
+          closestDivDistance = distance;
+        }
+      });
+      parentDiv.scrollTop = closestDivTop;
+    }
+  }, [isSidebarOpen]);
+
+  const sidebarOpenHandler = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    document.body.style.overflowY = "hidden";
+  };
+
+  useEffect(() => {
+    if (!isSidebarOpen) {
+      document.body.style.overflowY = "scroll";
+    }
+  }, [isSidebarOpen]);
+
   const { data, isLoading, isError } = useQuery("rooms", api.getRooms);
   const { data: cohorts, isLoading: cohortsLoading } = useQuery(
     "cohorts",
@@ -20,6 +56,10 @@ const Home = () => {
   const { data: instructors, isLoading: instructorsLoading } = useQuery(
     "instructors",
     api.getInstructors
+  );
+  const { data: events, isLoading: eventsLoading } = useQuery(
+    "outlook_events",
+    api.getEvents
   );
   const [filteredData, setFilteredData] = useState();
   useEffect(() => {
@@ -34,10 +74,7 @@ const Home = () => {
   if (isError) {
     return "Someting went wrong";
   }
-  if (isLoading) {
-    return <Loader />;
-  }
-  if (cohortsLoading) {
+  if (isLoading || eventsLoading || cohortsLoading) {
     return <Loader />;
   }
 
@@ -51,33 +88,103 @@ const Home = () => {
       <div className="px-6 py-4 sm:px-20 xl:px-52 md:py-6  border-b border-gray-100 mb-4 flex relative justify-end md:justify-end">
         <div className="flex ">
           <h3
-            onClick={() => setActiveLink("rooms")}
+            onClick={() => {
+              setActiveLink("rooms");
+              setIsSidebarOpen(false);
+            }}
             className={`${
               activeLink === "rooms" ? "border-b-black" : "border-b-white"
-            }  mr-3 cursor-pointer border-b duration-300`}
+            }  mr-2 sm:mr-3 cursor-pointer border-b duration-300`}
           >
             Rooms
           </h3>
           <h3
-            onClick={() => setActiveLink("cohorts")}
+            onClick={() => {
+              setActiveLink("cohorts");
+              setIsSidebarOpen(false);
+            }}
             className={`${
               activeLink === "cohorts" ? "border-b-black" : "border-b-white"
-            } mr-3 cursor-pointer border-b duration-300`}
+            } mr-2 sm:mr-3 cursor-pointer border-b duration-300`}
           >
             Cohorts
           </h3>
           <h3
-            onClick={() => setActiveLink("instructors")}
+            onClick={() => {
+              setActiveLink("instructors");
+              setIsSidebarOpen(false);
+            }}
             className={`${
               activeLink === "instructors" ? "border-b-black" : "border-b-white"
-            } cursor-pointer border-b duration-300`}
+            } mr-2 sm:mr-3 cursor-pointer border-b duration-300`}
           >
             Instructors
           </h3>
+          <h3
+            onClick={sidebarOpenHandler}
+            className={`${
+              isSidebarOpen ? "border-b-black" : "border-b-white"
+            } cursor-pointer border-b duration-300`}
+          >
+            Events
+          </h3>
         </div>
 
-        <div className="absolute left-0 sm:left-16 md:left-19 xl:left-48 -top-5 md:-top-2">
-          <img className="w-24" src={Logo} />
+        <div
+          className={`fixed w-full h-screen top-14 md:top-[4.6rem] duration-200 flex ${
+            isSidebarOpen ? "right-0" : "-right-full"
+          }`}
+        >
+          <div
+            onClick={() => setIsSidebarOpen(false)}
+            className="flex-1 hidden sm:block h-full"
+          ></div>
+          <div
+            className={`sm:w-[30rem] w-full h-full overflow-y-scroll bg-white md:border-l border-dashed pb-24`}
+            ref={parentRef}
+          >
+            {events
+              .sort((a, b) => new Date(a.start_time) - new Date(b.start_time))
+              .map((event, index) => {
+                let displayDate = true;
+                if (
+                  index > 0 &&
+                  event.start_time === events[index - 1].start_time
+                ) {
+                  displayDate = false;
+                }
+                return (
+                  <div
+                    data-date={`"${format(
+                      parseISO(event.start_time),
+                      "yyyy-MM-dd"
+                    )}"`}
+                    key={index}
+                    className="px-4"
+                  >
+                    {displayDate && (
+                      <div className="my-4">
+                        <div className="flex items-center">
+                          <span className="font-semibold mr-2">
+                            {format(parseISO(event.start_time), "MMM d")}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {format(parseISO(event.start_time), "EEEE")}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    <div>
+                      <EventMeeting key={index} meeting={event} />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+
+        <div className="absolute left-0 sm:left-16 md:left-19 xl:left-48 -top-3 sm:-top-5 md:-top-2">
+          <img className="w-20 sm:w-24" src={Logo} />
         </div>
       </div>
       {activeLink === "rooms" && (

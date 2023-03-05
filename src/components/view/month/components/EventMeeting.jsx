@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-const Meeting = ({ meeting, fade, cohorts, instructors, defaultMeeting }) => {
-  const {
-    title,
-    start_time,
-    end_time,
-    description,
-    email,
-    cohort,
-    instructor,
-  } = meeting;
-  let instructorData =
-    instructor && instructors.find((i) => i.id === parseInt(instructor));
-  let cohortData = cohort && cohorts.find((i) => i.id === parseInt(cohort));
+
+import { parseISO, format } from "date-fns";
+const EventMeeting = ({ meeting, defaultMeeting, fade }) => {
+  const { title, description, start_time, end_time, organizer, location } =
+    meeting;
+
+  const modifiedDescription = description;
+  const meetingLink = description.match(/(?<=<)[^<>]*(?=>)/g);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <motion.li
@@ -28,8 +23,8 @@ const Meeting = ({ meeting, fade, cohorts, instructors, defaultMeeting }) => {
       <div className="flex-auto">
         <p className="text-gray-900">{title}</p>
         <p className="mt-0.5">
-          <time>{start_time.slice(0, 5)}</time> -
-          <time> {end_time.slice(0, 5)}</time>
+          <time>{format(parseISO(start_time), "HH:mm")}</time> -
+          <time> {format(parseISO(end_time), "HH:mm")}</time>
         </p>
       </div>
       <AnimatePresence>
@@ -47,27 +42,34 @@ const Meeting = ({ meeting, fade, cohorts, instructors, defaultMeeting }) => {
             exit={{ height: 0 }}
             className="overflow-hidden"
           >
-            {description ? (
+            {
               <>
-                <p className="">{description}</p>
+                <div
+                  dangerouslySetInnerHTML={{ __html: modifiedDescription }}
+                />
+
                 <p>
-                  <span className="font-bold">Email:</span> {email}
+                  <span className="font-bold">Organizer: </span>
+                  {organizer}
+                </p>
+
+                <p>
+                  <span className="font-bold">Location: </span>
+                  {location}
+                </p>
+
+                <p>
+                  <span className="font-bold">Link: </span>
+                  {meetingLink ? (
+                    <a className=" underline" href={meetingLink}>
+                      Join Meeting
+                    </a>
+                  ) : (
+                    "Not Available"
+                  )}
                 </p>
               </>
-            ) : (
-              <>
-                <p>
-                  <span className="font-bold">Cohort: </span>
-                  {cohortData.year === 1999
-                    ? "All cohorts"
-                    : cohortData.major + " " + cohortData.year}
-                </p>
-                <p>
-                  <span className="font-bold">Faculty: </span>{" "}
-                  {instructorData.name}
-                </p>
-              </>
-            )}
+            }
           </motion.div>
         )}
       </AnimatePresence>
@@ -75,4 +77,4 @@ const Meeting = ({ meeting, fade, cohorts, instructors, defaultMeeting }) => {
   );
 };
 
-export default Meeting;
+export default EventMeeting;

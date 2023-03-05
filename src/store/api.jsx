@@ -88,3 +88,14 @@ export const getInstructorData = async (instructorId) => {
     console.log(err);
   }
 };
+
+// Events
+// Get events
+export const getEvents = async () => {
+  try {
+    const response = await api.get("/outlook_events");
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
