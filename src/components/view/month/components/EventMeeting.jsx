@@ -7,7 +7,7 @@ const EventMeeting = ({ meeting, defaultMeeting, fade }) => {
     meeting;
 
   const modifiedDescription = description;
-  const meetingLink = description.match(/(?<=<)[^<>]*(?=>)/g);
+  const meetingLink = description.match(/<([^<>]*)>/g);
   const [isOpen, setIsOpen] = useState(false);
   return (
     <motion.li
