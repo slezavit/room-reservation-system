@@ -139,9 +139,6 @@ const EventForm = ({ roomId, setStep, data }) => {
 
   const verifyHandle = (e) => {
     setVerification(e);
-    console.log("Js: ", sha512(e + "sugar").toString().toLowerCase());
-    console.log("GO: ", confirmInfo[1]);
-
     if (sha512(e + "sugar").toString().toLowerCase() === confirmInfo) {
       setVerificationError(false);
     } else {
