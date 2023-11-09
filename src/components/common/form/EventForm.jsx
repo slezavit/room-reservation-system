@@ -188,7 +188,7 @@ const EventForm = ({ roomId, setStep, data }) => {
         ...values,
         start_time: startTime.name + ":00",
         end_time: endTime.name + ":00",
-        email: localStorage.getItem("userEmail"),
+        email: JSON.parse(localStorage.getItem("userEmail")),
         status: "pending",
       };
       await mutateAsync(newValues);
