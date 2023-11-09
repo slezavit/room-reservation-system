@@ -15,10 +15,10 @@ const Form = ({ roomId, lectures, events }) => {
   const handleEmail = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "https://narynkey.pythonanywhere.com/api/mail/",
+      "https://pigeon-cretto.koyeb.app/bookaroom_verify",
       { email: userEmail }
     );
-    localStorage.setItem("confirmCode", JSON.stringify(response.data));
+    localStorage.setItem("confirmCode", JSON.stringify(response.data.hash));
 
     setStep(2);
   };
