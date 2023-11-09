@@ -140,7 +140,7 @@ const EventForm = ({ roomId, setStep, data }) => {
   const verifyHandle = (e) => {
     setVerification(e);
 
-    if (sha512(e + "sugar").toString() === confirmInfo[1]) {
+    if (sha512(e + "sugar").toString().toLowerCase() === confirmInfo[1]) {
       setVerificationError(false);
     } else {
       setVerificationError(true);
