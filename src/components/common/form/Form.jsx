@@ -19,6 +19,8 @@ const Form = ({ roomId, lectures, events }) => {
       { email: userEmail }
     );
     localStorage.setItem("confirmCode", JSON.stringify(response.data.hash));
+    localStorage.setItem("userEmail", JSON.stringify(userEmail));
+
 
     setStep(2);
   };
